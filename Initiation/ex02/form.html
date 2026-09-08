@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+        .page{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .checkbox{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+            text-align: center
+        }
+        button{
+            margin-top: 10px
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <script src="popup.js"></script>
+        <h1>Form</h1>
+        <div class="page">
+            <input type="text"  required placeholder="Firstname" id="firstname">
+            <input type="text" placeholder="Name" id="name">
+            <input type="number" placeholder="Age" id="age">
+            <input type="tel"  required placeholder="Phone" id="phone">
+            <input type="email" placeholder="Email" id="email">
+            <div class="checkbox">
+                <p>"Student at 42 ?"</p>
+                <input type="checkbox" placeholder="Student at 42 ?" id="student">
+            </div>
+            <fieldset>
+                <legend>Gender&nbsp;:</legend>
+                <div>
+                    <input type="radio" id="gender_male" name="gender" value="Homme" checked />
+                    <label for="gender_male">Male</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="gender_female" name="gender" value="Femme" />
+                    <label for="gender_female">Female</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="gender_other"  name="gender" value="Autre" />
+                    <label for="gender_other">Other</label>
+                </div>
+            </fieldset>
+            <div>
+                <button  onclick="displayFormContents()"> BUTTON </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
