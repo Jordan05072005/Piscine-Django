@@ -1,40 +1,16 @@
 
-def sort_lst(lst):
-    if lst == []: return []
-    pivot, lst_inf, lst_sup = lst[len(lst) - 1], [], []
-    for i in range( 0 ,len(lst) - 1):
-        if lst[i] < pivot:
-            lst_inf.append(lst[i])
-        else:
-            lst_sup.append(lst[i])
-    return sort_lst(lst_inf) + [pivot] + sort_lst(lst_sup)
-
-def find_key(dic, value):
-    keys = []
-    for key, val in dic.items():
-        if val == value:
-            keys.append(key)
-    return sort_lst(keys)
+def sort_lst(lst, key=lambda x:x[0], value=lambda x: x[1]):
+    if not lst:
+        return []
+    pivot = lst[len(lst) - 1]
+    lst_inf = [x for x in lst[:-1] if value(x) < value(pivot) or (value(x) == value(pivot) and key(x) < key(pivot))]
+    lst_sup = [x for x in lst[:-1] if value(x) > value(pivot) or (value(x) == value(pivot) and key(x) > key(pivot))]
+    return sort_lst(lst_inf, key, value) + [pivot] + sort_lst(lst_sup, key, value)
 
 def my_sort_dico(dic):
-    # list(mon_dico.items())[2]
-    dic_lst = list(dic.items())
-    values = list(dic.values())
-    sort_values = sort_lst(values)
-    new_dic = {}
-
-    for sort_value in sort_values:
-        if (sort_values.count(sort_value) > 1):
-            keys = find_key(dic, sort_value)
-            for key in keys:
-                new_dic[key] = sort_value
-        else:
-            idx = values.index(sort_value)
-            new_dic[dic_lst[idx][0]] = sort_value
-
-    print(new_dic)
-
-
+    items = sort_lst(list(dic.items()),  lambda item: item[0], lambda item: item[1])
+    for name in dict(items).keys():
+        print(name)
 
 
 if __name__ == '__main__':
@@ -60,4 +36,4 @@ if __name__ == '__main__':
         'Thompson' : '1949',
         'Burton' : '1939',
     }
-    print(my_sort_dico(d))
+    my_sort_dico(d)
