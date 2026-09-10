@@ -12,7 +12,7 @@
 
 
 
-Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML\*\*, \*\*CSS\*\*, et l'intégration de scripts \*\*JavaScript\*\* existants dans une page.
+Ce premier sujet aborde les bases du développement Web : **HTTP**, **HTML**, **CSS**, et l'intégration de scripts **JavaScript** existants dans une page.
 
 
 
@@ -80,9 +80,9 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 ### Exercice 00 — Premier script shell
 
-- \*\*Rendu :\*\* `ex00/myawesomescript.sh`
+- **Rendu :** `ex00/myawesomescript.sh`
 
-- \*\*Commandes autorisées :\*\* `curl`, `grep`, `cut`
+- **Commandes autorisées :** `curl`, `grep`, `cut`
 
 - Script `/bin/sh` exécutable qui affiche l'adresse réelle vers laquelle redirige une URL `bit.ly` passée en argument.
 
@@ -98,7 +98,7 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 ### Exercice 01 — CV en HTML
 
-- \*\*Rendu :\*\* `ex01/cv.html`
+- **Rendu :** `ex01/cv.html`
 
 - Contenu minimum imposé : nom, prénom, compétences, parcours.
 
@@ -116,23 +116,23 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 ### Exercice 02 — Formulaire d'envoi d'emails
 
-- \*\*Rendu :\*\* `ex02/form.html`
+- **Rendu :** `ex02/form.html`
 
 - Champs requis : `Firstname` (texte), `Name` (texte), `Age` (`type="number"`), `Phone` (`type="tel"`), `Email` (`type="email"`), `Student at 42 ?` (checkbox), `Gender` (radio : Male / Female / Other).
 
 - Bouton de soumission avec `onclick="displayFormContents();"`.
 
-- Le fichier `popup.js` fourni (dans `d00.tar.gz/ex02/`) doit être intégré \*\*tel quel\*\*, sans modification, pour faire apparaître la popup avec les valeurs saisies au clic sur le bouton.
+- Le fichier `popup.js` fourni (dans `d00.tar.gz/ex02/`) doit être intégré **tel quel**, sans modification, pour faire apparaître la popup avec les valeurs saisies au clic sur le bouton.
 
 
 
 ### Exercice 03 — Reproduction d'une page web
 
-- \*\*Rendu :\*\* `ex03/copy.html`
+- **Rendu :** `ex03/copy.html`
 
 - Reproduire le plus fidèlement possible la page dont le screenshot et le fichier `.css` sont fournis dans `d00.tar.gz/ex03/`.
 
-- Le fichier CSS fourni doit être utilisé \*\*sans modification\*\* (une version "fraîche" sera réutilisée en soutenance).
+- Le fichier CSS fourni doit être utilisé **sans modification** (une version "fraîche" sera réutilisée en soutenance).
 
 - Séparation fond/forme, sémantique des balises et structure logique du document à respecter.
 
@@ -140,9 +140,9 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 ### Exercice 04 — Intégration de snippets JS
 
-- \*\*Rendu :\*\* `ex04/snippets.html`
+- **Rendu :** `ex04/snippets.html`
 
-- Importer les quatre scripts fournis (`file1.js` à `file4.js`, dans `d00.tar.gz/ex04/`) de façon à ce que la popup s'affiche \*\*correctement\*\* (pas de caractères mal encodés).
+- Importer les quatre scripts fournis (`file1.js` à `file4.js`, dans `d00.tar.gz/ex04/`) de façon à ce que la popup s'affiche **correctement** (pas de caractères mal encodés).
 
 - Contrainte stricte : uniquement importer les scripts fournis — interdiction de les modifier ou d'ajouter du JavaScript dans le HTML.
 
@@ -150,11 +150,11 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 ### Exercice 05 — Validation W3C
 
-- \*\*Rendu :\*\* votre `ex05/index.html` corrigé.
+- **Rendu :** votre `ex05/index.html` corrigé.
 
-- Corriger le fichier HTML fourni (`d00.tar.gz/ex05/`) pour qu'il passe la \[validation W3C](https://validator.w3.org/) sans aucune erreur ni aucun warning.
+- Corriger le fichier HTML fourni (`d00.tar.gz/ex05/`) pour qu'il passe la [validation W3C](https://validator.w3.org/) sans aucune erreur ni aucun warning.
 
-- Le fichier doit être \*\*corrigé\*\*, pas tronqué : tout le contenu d'origine doit rester présent dans le rendu.
+- Le fichier doit être **corrigé**, pas tronqué : tout le contenu d'origine doit rester présent dans le rendu.
 
 
 
@@ -172,7 +172,7 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 
 
-\*\*Jordan Guaglio\*\*
+**Jordan Guaglio**
 
 Étudiant École 42 — Perpignan
 
