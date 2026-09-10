@@ -1,4 +1,4 @@
-\# Formation Python-Django - 00 : Initiation
+# Formation Python-Django - 00 : Initiation
 
 
 
@@ -8,7 +8,7 @@
 
 
 
-\## 📋 Résumé
+## 📋 Résumé
 
 
 
@@ -16,17 +16,17 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 
 
-\## 📚 Règles communes
+## 📚 Règles communes
 
 
 
-\- Aucun comportement indéfini toléré (le projet est sinon considéré non fonctionnel).
+- Aucun comportement indéfini toléré (le projet est sinon considéré non fonctionnel).
 
-\- Des tests personnels sont recommandés mais ne sont ni rendus ni notés.
+- Des tests personnels sont recommandés mais ne sont ni rendus ni notés.
 
 
 
-\## 🗂️ Structure du rendu
+## 🗂️ Structure du rendu
 
 
 
@@ -74,17 +74,17 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 
 
-\## 📝 Exercices
+## 📝 Exercices
 
 
 
-\### Exercice 00 — Premier script shell
+### Exercice 00 — Premier script shell
 
-\- \*\*Rendu :\*\* `ex00/myawesomescript.sh`
+- \*\*Rendu :\*\* `ex00/myawesomescript.sh`
 
-\- \*\*Commandes autorisées :\*\* `curl`, `grep`, `cut`
+- \*\*Commandes autorisées :\*\* `curl`, `grep`, `cut`
 
-\- Script `/bin/sh` exécutable qui affiche l'adresse réelle vers laquelle redirige une URL `bit.ly` passée en argument.
+- Script `/bin/sh` exécutable qui affiche l'adresse réelle vers laquelle redirige une URL `bit.ly` passée en argument.
 
 &#x20; ```bash
 
@@ -96,79 +96,79 @@ Ce premier sujet aborde les bases du développement Web : \*\*HTTP\*\*, \*\*HTML
 
 
 
-\### Exercice 01 — CV en HTML
+### Exercice 01 — CV en HTML
 
-\- \*\*Rendu :\*\* `ex01/cv.html`
+- \*\*Rendu :\*\* `ex01/cv.html`
 
-\- Contenu minimum imposé : nom, prénom, compétences, parcours.
+- Contenu minimum imposé : nom, prénom, compétences, parcours.
 
-\- Au moins un titre `<title>` et un `<h1>`.
+- Au moins un titre `<title>` et un `<h1>`.
 
-\- Au moins un tableau (`table`, `th`, `tr`, `td`) : bordures visibles (`solid`) et fusionnées (`collapse`), cellule en bas à droite en `#424242`.
+- Au moins un tableau (`table`, `th`, `tr`, `td`) : bordures visibles (`solid`) et fusionnées (`collapse`), cellule en bas à droite en `#424242`.
 
-\- Au moins une liste `<ul>` et une liste `<ol>` (avec `<li>`).
+- Au moins une liste `<ul>` et une liste `<ol>` (avec `<li>`).
 
-\- Séparation fond/forme et sémantique HTML respectées.
+- Séparation fond/forme et sémantique HTML respectées.
 
-\- Contrainte de syntaxe : la règle des bordures visibles/fusionnées doit être posée via une balise `<style>` dans le `<head>` ; la couleur `#424242` de la dernière cellule doit être posée via un attribut `style` inline sur la balise concernée (deux solutions syntaxiques différentes imposées).
-
-
-
-\### Exercice 02 — Formulaire d'envoi d'emails
-
-\- \*\*Rendu :\*\* `ex02/form.html`
-
-\- Champs requis : `Firstname` (texte), `Name` (texte), `Age` (`type="number"`), `Phone` (`type="tel"`), `Email` (`type="email"`), `Student at 42 ?` (checkbox), `Gender` (radio : Male / Female / Other).
-
-\- Bouton de soumission avec `onclick="displayFormContents();"`.
-
-\- Le fichier `popup.js` fourni (dans `d00.tar.gz/ex02/`) doit être intégré \*\*tel quel\*\*, sans modification, pour faire apparaître la popup avec les valeurs saisies au clic sur le bouton.
+- Contrainte de syntaxe : la règle des bordures visibles/fusionnées doit être posée via une balise `<style>` dans le `<head>` ; la couleur `#424242` de la dernière cellule doit être posée via un attribut `style` inline sur la balise concernée (deux solutions syntaxiques différentes imposées).
 
 
 
-\### Exercice 03 — Reproduction d'une page web
+### Exercice 02 — Formulaire d'envoi d'emails
 
-\- \*\*Rendu :\*\* `ex03/copy.html`
+- \*\*Rendu :\*\* `ex02/form.html`
 
-\- Reproduire le plus fidèlement possible la page dont le screenshot et le fichier `.css` sont fournis dans `d00.tar.gz/ex03/`.
+- Champs requis : `Firstname` (texte), `Name` (texte), `Age` (`type="number"`), `Phone` (`type="tel"`), `Email` (`type="email"`), `Student at 42 ?` (checkbox), `Gender` (radio : Male / Female / Other).
 
-\- Le fichier CSS fourni doit être utilisé \*\*sans modification\*\* (une version "fraîche" sera réutilisée en soutenance).
+- Bouton de soumission avec `onclick="displayFormContents();"`.
 
-\- Séparation fond/forme, sémantique des balises et structure logique du document à respecter.
-
-
-
-\### Exercice 04 — Intégration de snippets JS
-
-\- \*\*Rendu :\*\* `ex04/snippets.html`
-
-\- Importer les quatre scripts fournis (`file1.js` à `file4.js`, dans `d00.tar.gz/ex04/`) de façon à ce que la popup s'affiche \*\*correctement\*\* (pas de caractères mal encodés).
-
-\- Contrainte stricte : uniquement importer les scripts fournis — interdiction de les modifier ou d'ajouter du JavaScript dans le HTML.
+- Le fichier `popup.js` fourni (dans `d00.tar.gz/ex02/`) doit être intégré \*\*tel quel\*\*, sans modification, pour faire apparaître la popup avec les valeurs saisies au clic sur le bouton.
 
 
 
-\### Exercice 05 — Validation W3C
+### Exercice 03 — Reproduction d'une page web
 
-\- \*\*Rendu :\*\* votre `ex05/index.html` corrigé.
+- \*\*Rendu :\*\* `ex03/copy.html`
 
-\- Corriger le fichier HTML fourni (`d00.tar.gz/ex05/`) pour qu'il passe la \[validation W3C](https://validator.w3.org/) sans aucune erreur ni aucun warning.
+- Reproduire le plus fidèlement possible la page dont le screenshot et le fichier `.css` sont fournis dans `d00.tar.gz/ex03/`.
 
-\- Le fichier doit être \*\*corrigé\*\*, pas tronqué : tout le contenu d'origine doit rester présent dans le rendu.
+- Le fichier CSS fourni doit être utilisé \*\*sans modification\*\* (une version "fraîche" sera réutilisée en soutenance).
 
-
-
-\## 📤 Rendu et peer-évaluation
+- Séparation fond/forme, sémantique des balises et structure logique du document à respecter.
 
 
 
-\- Rendu via le dépôt Git assigné, avec des noms de dossiers/fichiers strictement conformes au sujet.
+### Exercice 04 — Intégration de snippets JS
 
-\- Évaluation réalisée sur l'ordinateur du groupe évalué.
+- \*\*Rendu :\*\* `ex04/snippets.html`
+
+- Importer les quatre scripts fournis (`file1.js` à `file4.js`, dans `d00.tar.gz/ex04/`) de façon à ce que la popup s'affiche \*\*correctement\*\* (pas de caractères mal encodés).
+
+- Contrainte stricte : uniquement importer les scripts fournis — interdiction de les modifier ou d'ajouter du JavaScript dans le HTML.
 
 
 
-\## 👤 Auteur
+### Exercice 05 — Validation W3C
+
+- \*\*Rendu :\*\* votre `ex05/index.html` corrigé.
+
+- Corriger le fichier HTML fourni (`d00.tar.gz/ex05/`) pour qu'il passe la \[validation W3C](https://validator.w3.org/) sans aucune erreur ni aucun warning.
+
+- Le fichier doit être \*\*corrigé\*\*, pas tronqué : tout le contenu d'origine doit rester présent dans le rendu.
+
+
+
+## 📤 Rendu et peer-évaluation
+
+
+
+- Rendu via le dépôt Git assigné, avec des noms de dossiers/fichiers strictement conformes au sujet.
+
+- Évaluation réalisée sur l'ordinateur du groupe évalué.
+
+
+
+## 👤 Auteur
 
 
 
