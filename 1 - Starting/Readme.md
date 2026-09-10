@@ -1,4 +1,4 @@
-\# Python-Django : 00 - Starting
+# Python-Django : 00 - Starting
 
 
 
@@ -10,25 +10,25 @@ de courts exercices manipulant variables, dictionnaires, fichiers et génératio
 
 
 
-\## Règles générales
+## Règles générales
 
 
 
-\- Aucune fonction ne doit quitter de manière inattendue (segfault, bus error, double
+- Aucune fonction ne doit quitter de manière inattendue (segfault, bus error, double
 
 &#x20; free...) — hors comportements indéfinis.
 
-\- Seul le contenu du dépôt git est évalué.
+- Seul le contenu du dépôt git est évalué.
 
 
 
-\## Règles spécifiques à ce projet
+## Règles spécifiques à ce projet
 
 
 
-\- Pas de code dans le scope global : tout passe par des fonctions.
+- Pas de code dans le scope global : tout passe par des fonctions.
 
-\- Chaque fichier rendu doit se terminer par :
+- Chaque fichier rendu doit se terminer par :
 
 &#x20; ```python
 
@@ -38,17 +38,17 @@ de courts exercices manipulant variables, dictionnaires, fichiers et génératio
 
 &#x20; ```
 
-\- Aucun import n'est autorisé, sauf ceux explicitement mentionnés dans la section
+- Aucun import n'est autorisé, sauf ceux explicitement mentionnés dans la section
 
 &#x20; "Allowed functions" de chaque exercice.
 
-\- Les exceptions levées par `open()` n'ont pas besoin d'être gérées.
+- Les exceptions levées par `open()` n'ont pas besoin d'être gérées.
 
-\- Utiliser l'interpréteur `python3`.
+- Utiliser l'interpréteur `python3`.
 
 
 
-\## Structure du projet
+## Structure du projet
 
 
 
@@ -74,11 +74,11 @@ de courts exercices manipulant variables, dictionnaires, fichiers et génératio
 
 
 
-\## Détail des exercices
+## Détail des exercices
 
 
 
-\### ex00 — my first variables
+### ex00 — my first variables
 
 Déclare 9 variables de types différents (`int`, `str`, `float`, `bool`, `list`, `dict`,
 
@@ -88,7 +88,7 @@ le type explicitement dans le code.
 
 
 
-\### ex01 — Numbers
+### ex01 — Numbers
 
 Lit un fichier `numbers.txt` contenant les nombres de 1 à 100 séparés par des virgules,
 
@@ -96,7 +96,7 @@ et les affiche un par ligne, sans virgules.
 
 
 
-\### ex02 — My first dictionary
+### ex02 — My first dictionary
 
 Transforme une liste de tuples `(musicien, année)` en dictionnaire `{année: musicien}`
 
@@ -104,7 +104,7 @@ et l'affiche sur la sortie standard.
 
 
 
-\### ex03 — Key search
+### ex03 — Key search
 
 Prend un état en argument et affiche sa capitale à partir d'un dictionnaire `states`
 
@@ -114,7 +114,7 @@ ne fait rien si le nombre d'arguments n'est pas exactement un.
 
 
 
-\### ex04 — Search by value
+### ex04 — Search by value
 
 Même principe que l'ex03, mais dans l'autre sens : prend une capitale en argument et
 
@@ -122,7 +122,7 @@ affiche l'état correspondant.
 
 
 
-\### ex05 — Search by key or value
+### ex05 — Search by key or value
 
 Prend une chaîne contenant plusieurs termes séparés par des virgules et indique, pour
 
@@ -132,7 +132,7 @@ casse et aux espaces multiples.
 
 
 
-\### ex06 — Dictionary sorting
+### ex06 — Dictionary sorting
 
 Affiche les musiciens d'un dictionnaire `{nom: année}`, triés par année croissante puis
 
@@ -140,7 +140,7 @@ alphabétiquement en cas d'égalité.
 
 
 
-\### ex07 — Periodic table of the elements
+### ex07 — Periodic table of the elements
 
 Lit `periodic\_table.txt` et génère un fichier `periodic\_table.html` reproduisant la
 
@@ -152,7 +152,7 @@ masse atomique...) dans une liste `<ul>`. Le HTML généré doit être valide W3
 
 
 
-\## Utilisation
+## Utilisation
 
 
 
@@ -178,7 +178,7 @@ python3 ex07/periodic\_table.py
 
 
 
-\## Soumission
+## Soumission
 
 
 
