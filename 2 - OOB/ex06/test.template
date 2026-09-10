@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  charset="UTF-8"/>
+    <meta  content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+      Page de test complète
+    </title>
+  </head>
+  <body class="main" id="page">
+    <h1>
+      Oh no, not again!
+    </h1>
+    <p>
+      Un paragraphe avec des caractères spéciaux : <, >, &, "
+    </p>
+    <div class="container">
+      <h2>
+        Une section
+      </h2>
+      <p>
+        Texte sur plusieurs lignes
+      </p>
+      <span>
+        Un span inline
+      </span>
+      <br />
+      <span>
+        Et un second span après un retour à la ligne
+      </span>
+    </div>
+    <ul>
+      <li>
+        Premier élément
+      </li>
+      <li>
+        Deuxième élément
+      </li>
+    </ul>
+    <ol>
+      <li>
+        Étape 1
+      </li>
+      <li>
+        Étape 2
+      </li>
+    </ol>
+    <table>
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Âge
+        </th>
+      </tr>
+      <tr>
+        <td>
+          Alice
+        </td>
+        <td>
+          30
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Bob
+        </td>
+        <td>
+          25
+        </td>
+      </tr>
+    </table>
+    <hr />
+    <img  alt="image" src="http://i.imgur.com/pfp3T.jpg"/>
+    <div class="empty"></div>
+    <p></p>
+    <div class="footer">
+      <span>
+        Pied de page
+      </span>
+    </div>
+  </body>
+</html>

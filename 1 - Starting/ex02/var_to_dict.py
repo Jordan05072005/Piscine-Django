@@ -1,8 +1,8 @@
 def var_to_dict(var):
-    if (type(var) is not list): return
+    if type(var) is not list: return
     d = {}
     for element in var:
-        if (len(element) != 2): return
+        if len(element) != 2: return
         d[element[1]] = element[0]
     # d = dict(sorted(d.items(), reverse = True))
     for (key, value) in d.items():

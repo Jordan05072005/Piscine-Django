@@ -1,0 +1,9 @@
+<h1>{firstname} {name}</h1>
+
+<ul>
+    <li>Prénom : {firstname}</li>
+    <li>Nom : {name}</li>
+    <li>Âge : {age} ans</li>
+    <li>Profession : {job}</li>
+</ul>
+
