@@ -2,11 +2,11 @@
 
 
 
-Projet d'introduction à Python, réalisé dans le cadre de la piscine 42 Python-Django.
+Projet **d'introduction à Python**, réalisé dans le cadre de **la piscine 42 Python-Django**.
 
 Objectif : découvrir la syntaxe et la sémantique de base de Python à travers une série
 
-de courts exercices manipulant variables, dictionnaires, fichiers et génération HTML.
+de courts exercices manipulant variables, dictionnaires, fichiers et **génération HTML**.
 
 
 
