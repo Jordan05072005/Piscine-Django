@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐍 Python-Django · Jour 1 — Librairies
+# 🐍 Python-Django — Librairies
 
 **Six exercices pour apprendre à ne plus tout réécrire soi-même.**
 Géohash, pip, API Wikipédia, scraping HTML, virtualenv… et un premier *Hello World* Django.
