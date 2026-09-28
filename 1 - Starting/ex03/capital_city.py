@@ -19,7 +19,7 @@ def find_capital_city(city):
         if city.lower() == city_for_list.lower():
             print(capital_cities[initial])
             return
-    print("Unknown state")
+    print("Unknown capital city ")
 
 
 if __name__ == '__main__':

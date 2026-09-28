@@ -10,7 +10,6 @@ def file_to_lst_dico(filename):
             for attribute in line_split[1].split(','):
                 attribute_split = attribute.strip().split(':')
                 elements[len(elements) - 1][attribute_split[0]] = attribute_split[1]
-    print(elements)
     return elements
 
 
