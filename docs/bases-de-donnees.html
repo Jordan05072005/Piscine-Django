@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bases de données : SQL, NoSQL, ORM et ODM</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d2226;--mut:#5f6b73;--card:#eef1f0;--acc:#0b6b5c;--hl:#ffefb0;--bd:#d5dbd8;--ok:#1f7a3f;--ko:#b3261e;--code:#f3f1ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181a;--fg:#e6ebe9;--mut:#93a09b;--card:#1b2427;--acc:#5fd1b8;--hl:#4d4212;--bd:#2c3a3d;--ok:#6fd08c;--ko:#f28b82;--code:#172023}}
+:root[data-theme="dark"]{--bg:#12181a;--fg:#e6ebe9;--mut:#93a09b;--card:#1b2427;--acc:#5fd1b8;--hl:#4d4212;--bd:#2c3a3d;--ok:#6fd08c;--ko:#f28b82;--code:#172023}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Georgia,'Iowan Old Style',serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 90px}
+h1{font-size:1.9rem;line-height:1.2;margin:.2em 0}
+h2{margin:2.6rem 0 .4rem;font-size:1.35rem;scroll-margin-top:12px}
+h3{margin:1.6rem 0 .3rem;font:700 1.02rem system-ui,sans-serif}
+.part{margin:3rem 0 0;padding:6px 0;border-top:2px solid var(--acc);font:700 .8rem system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+p.i{color:var(--mut);margin:.2rem 0 .8rem}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.toc a{padding:6px 14px;border:1px solid var(--bd);border-radius:999px;background:var(--card);color:var(--fg);font:600 .88rem system-ui,sans-serif;text-decoration:none}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 14px}
+.tabs button{padding:8px 18px;border:1px solid var(--bd);border-radius:999px;background:var(--card);color:var(--fg);font:600 .92rem system-ui,sans-serif;cursor:pointer}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+[data-panel][hidden]{display:none}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+td,th{border-bottom:1px solid var(--bd);padding:7px 8px;text-align:left;vertical-align:top}
+th{font:700 .88rem system-ui,sans-serif}
+tbody th{white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0}
+.card dt{font:700 .8rem system-ui,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin-top:8px}
+.card dt:first-child{margin-top:0}
+.card dd{margin:2px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:620px){.two{grid-template-columns:1fr}}
+.pro,.con{list-style:none;padding:0;margin:0}
+.pro li,.con li{padding:6px 0 6px 26px;position:relative;border-bottom:1px solid var(--bd)}
+.pro li:last-child,.con li:last-child{border-bottom:0}
+.pro li::before{content:"✓";position:absolute;left:4px;color:var(--ok);font-weight:700}
+.con li::before{content:"✗";position:absolute;left:4px;color:var(--ko);font-weight:700}
+.head-ok{color:var(--ok)}.head-ko{color:var(--ko)}
+.flow{list-style:none;padding:0;margin:0}
+.flow li{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;margin-bottom:24px;position:relative}
+.flow li:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-23px;width:20px;margin-left:-10px;text-align:center;color:var(--mut)}
+.flow b{font:700 1rem system-ui,sans-serif}
+.flow span{display:block;color:var(--mut);font-size:.92rem}
+.key{background:var(--hl);border-radius:8px;padding:10px 14px;margin:14px 0}
+pre{background:var(--code);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;overflow-x:auto;font:.84rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:10px 0}
+code{background:var(--card);padding:1px 5px;border-radius:4px;font:.86em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre code{background:none;padding:0;font:inherit}
+a.g{color:var(--acc);text-decoration:none;border-bottom:1px dashed}
+ul.l{padding-left:20px}ul.l li{margin:4px 0}
+dl.gl{margin:0}
+dl.gl div{padding:10px 12px;border-radius:8px;scroll-margin-top:12px}
+dl.gl div:target{background:var(--hl)}
+dl.gl dt{font:700 1rem system-ui,sans-serif}
+dl.gl dd{margin:2px 0 0}
+.up{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));padding:8px 14px;border:1px solid var(--bd);border-radius:999px;background:var(--card);color:var(--fg);font:600 .9rem system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<main id="top">
+<h1>Bases de données : SQL, NoSQL, ORM et ODM</h1>
+<p class="i">D'abord les familles de bases de données et leurs forces, puis les outils qui permettent de les manipuler avec des objets. Clique sur un terme souligné pour aller à sa définition dans le glossaire.</p>
+<nav class="toc">
+<a href="#sql-nosql">SQL vs NoSQL</a><a href="#forces">Forces</a><a href="#types">Types de bases</a><a href="#orm-odm">ORM vs ODM</a><a href="#exemple">Exemple</a><a href="#operations">Opérations</a><a href="#choisir">Choisir</a><a href="#glossaire">Glossaire</a>
+</nav>
+
+<!-- ============ PARTIE 1 ============ -->
+<div class="part">Partie 1 · Les bases de données</div>
+
+<section id="sql-nosql">
+<h2>SQL vs NoSQL</h2>
+<p><b>SQL</b> désigne les <a class="g" href="#d-relationnelle">bases relationnelles</a> : les données sont rangées dans des tables reliées entre elles, et on les interroge avec le langage SQL. Exemples : PostgreSQL, MySQL, SQLite, Oracle.</p>
+<p><b>NoSQL</b> (<i>Not only SQL</i>) regroupe <b>toutes les autres familles</b>. Elles ne forment pas un seul type : une base de documents, une base clé-valeur et une base de graphes n'ont presque rien en commun, à part le fait de ne pas être relationnelles. Exemples : MongoDB, Redis, Cassandra, Neo4j.</p>
+<div class="scroll"><table>
+<thead><tr><th></th><th>SQL</th><th>NoSQL</th></tr></thead>
+<tbody>
+<tr><th>Modèle</th><td>Tables, lignes et colonnes</td><td>Selon la famille : documents, clé-valeur, colonnes larges, graphes...</td></tr>
+<tr><th>Structure</th><td>Schéma fixe, imposé par la base</td><td>Schéma souple, souvent imposé seulement par l'application</td></tr>
+<tr><th>Langage</th><td>SQL, standardisé et commun à toutes les bases</td><td>Propre à chaque base : requêtes MongoDB, commandes Redis, Cypher...</td></tr>
+<tr><th>Relations</th><td>Au cœur du modèle : <a class="g" href="#d-fk">clés étrangères</a> et <a class="g" href="#d-jointure">jointures</a></td><td>Peu ou pas de jointures : on regroupe ou on duplique</td></tr>
+<tr><th>Transactions</th><td>Garanties <a class="g" href="#d-acid">ACID</a> complètes</td><td>Variables, souvent une <a class="g" href="#d-coherence">cohérence à terme</a></td></tr>
+<tr><th>Montée en charge</th><td>Surtout <a class="g" href="#d-verticale">verticale</a></td><td>Souvent <a class="g" href="#d-horizontale">horizontale</a></td></tr>
+</tbody></table></div>
+<p class="key">La frontière est de plus en plus floue : PostgreSQL sait stocker et interroger du JSON avec le type <code>JSONB</code>, MongoDB propose des transactions sur plusieurs documents, et certaines bases distribuées gardent le langage SQL.</p>
+</section>
+
+<section id="forces">
+<h2>Forces et inconvénients</h2>
+<div class="tabs"><button data-k="sql">SQL</button><button data-k="nosql">NoSQL</button></div>
+<div data-panel="sql" class="two">
+<div class="card"><h3 class="head-ok">Forces</h3><ul class="pro">
+<li>Cohérence stricte : la base refuse les données invalides</li>
+<li>Transactions ACID fiables, idéales pour l'argent et les stocks</li>
+<li>Requêtes puissantes : jointures, agrégations, statistiques</li>
+<li>Langage standard, connu partout, écosystème très mûr</li>
+<li>Chaque information n'est stockée qu'une fois</li>
+</ul></div>
+<div class="card"><h3 class="head-ko">Inconvénients</h3><ul class="con">
+<li>Structure rigide : chaque changement demande une <a class="g" href="#d-migration">migration</a></li>
+<li>Montée en charge horizontale plus complexe</li>
+<li>Jointures coûteuses sur de très gros volumes</li>
+<li>Peu adapté aux données de forme variable</li>
+<li>Données hiérarchiques ou imbriquées moins naturelles</li>
+</ul></div>
+</div>
+<div data-panel="nosql" class="two" hidden>
+<div class="card"><h3 class="head-ok">Forces</h3><ul class="pro">
+<li>Structure souple : un champ s'ajoute sans migration</li>
+<li>Montée en charge horizontale souvent prévue dès la conception</li>
+<li>Très rapides pour leur usage cible : document complet, accès par clé...</li>
+<li>Modèles adaptés à des besoins précis : cache, graphe, séries temporelles</li>
+<li>Pratiques pour prototyper quand le modèle bouge encore</li>
+</ul></div>
+<div class="card"><h3 class="head-ko">Inconvénients</h3><ul class="con">
+<li>La cohérence repose davantage sur le code de l'application</li>
+<li>Jointures absentes ou limitées : duplication ou requêtes multiples</li>
+<li>Transactions plus limitées, ou cohérence seulement à terme</li>
+<li>Pas de langage commun : chaque base a sa syntaxe</li>
+<li>Les données dupliquées doivent être mises à jour partout</li>
+</ul></div>
+</div>
+</section>
+
+<section id="types">
+<h2>Les autres types de bases</h2>
+<p class="i">« NoSQL » recouvre plusieurs familles, chacune pensée pour un besoin précis. D'autres types gardent le SQL tout en visant des usages particuliers.</p>
+<div class="tabs" id="type-tabs"></div>
+<div id="type-card" class="card"></div>
+<p class="key"><b>En pratique, on les combine.</b> Une application courante utilise souvent PostgreSQL comme source de vérité, Redis comme cache et Elasticsearch pour la recherche : c'est la <a class="g" href="#d-polyglotte">persistance polyglotte</a>.</p>
+</section>
+
+<!-- ============ PARTIE 2 ============ -->
+<div class="part">Partie 2 · Les outils pour les manipuler</div>
+
+<section id="orm-odm">
+<h2>ORM vs ODM</h2>
+<p>Un <a class="g" href="#d-orm">ORM</a> et un <a class="g" href="#d-odm">ODM</a> permettent de manipuler la base avec des objets de ton langage plutôt qu'en écrivant des requêtes. Ils ont <b>le même rôle</b> : seule la base qu'ils traduisent change.</p>
+<div class="scroll"><table>
+<thead><tr><th></th><th>ORM</th><th>ODM</th></tr></thead>
+<tbody>
+<tr><th>Nom complet</th><td><i>Object-Relational Mapping</i></td><td><i>Object-Document Mapping</i></td></tr>
+<tr><th>Base visée</th><td>Relationnelle (SQL)</td><td>Orientée documents (MongoDB)</td></tr>
+<tr><th>Une classe ↔</th><td>une <a class="g" href="#d-table">table</a></td><td>une <a class="g" href="#d-collection">collection</a></td></tr>
+<tr><th>Un objet ↔</th><td>une ligne</td><td>un <a class="g" href="#d-document">document</a></td></tr>
+<tr><th>Exemples</th><td>Django ORM, TypeORM, Prisma, SQLAlchemy</td><td>Mongoose</td></tr>
+</tbody></table></div>
+
+<h3>Le trajet d'une opération</h3>
+<div class="tabs"><button data-k="orm">ORM</button><button data-k="odm">ODM</button></div>
+<ol class="flow" data-panel="orm">
+<li><b>Ton code</b><span><code>Livre.objects.filter(annee=2020)</code></span></li>
+<li><b>ORM</b><span>Traduit l'appel en requête SQL</span></li>
+<li><b>Requête SQL</b><span><code>SELECT * FROM livre WHERE annee = 2020;</code></span></li>
+<li><b>Base relationnelle</b><span>Renvoie des lignes, que l'ORM convertit en objets</span></li>
+</ol>
+<ol class="flow" data-panel="odm" hidden>
+<li><b>Ton code</b><span><code>livreModel.find({ annee: 2020 })</code></span></li>
+<li><b>ODM (Mongoose)</b><span>Valide avec le schéma, puis traduit en requête MongoDB</span></li>
+<li><b>Requête MongoDB</b><span><code>db.livres.find({ annee: 2020 })</code></span></li>
+<li><b>MongoDB</b><span>Renvoie des documents, que l'ODM convertit en objets</span></li>
+</ol>
+
+<h3>Ce qu'ils ont en commun</h3>
+<ul class="l">
+<li><b>Des objets au lieu de requêtes</b> : l'outil génère la requête adaptée à la base.</li>
+<li><b>Une description des données dans le code</b> : un <a class="g" href="#d-modele">modèle</a>, une <a class="g" href="#d-entite">entité</a> ou un <a class="g" href="#d-schema">schéma</a>.</li>
+<li><b>De la validation</b> : types et champs obligatoires vérifiés avant l'écriture.</li>
+<li><b>De la sécurité</b> : les valeurs sont échappées, ce qui protège des injections.</li>
+</ul>
+
+<h3>Ce qui les différencie</h3>
+<div class="scroll"><table>
+<thead><tr><th></th><th>ORM (base SQL)</th><th>ODM (MongoDB)</th></tr></thead>
+<tbody>
+<tr><th>Qui impose la structure ?</th><td>La <b>base</b> : une colonne manquante provoque une erreur</td><td>L'<b>application</b> : c'est le schéma de l'ODM qui impose une forme</td></tr>
+<tr><th>Relations</th><td>Clés étrangères et jointures</td><td>Documents imbriqués, ou références avec <a class="g" href="#d-populate"><code>populate()</code></a></td></tr>
+<tr><th>Changer la structure</th><td>Migrations obligatoires</td><td>En général pas de migration</td></tr>
+<tr><th>Transactions</th><td>Natives et centrales</td><td>Possibles, avec plus de contraintes</td></tr>
+<tr><th>Point fort</th><td>Données très liées, cohérence stricte</td><td>Forme variable, lecture d'un bloc complet</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="exemple">
+<h2>Exemple : un auteur et ses livres</h2>
+<p class="i">Les mêmes données, rangées de deux façons.</p>
+<div class="tabs"><button data-k="tables">Tables SQL</button><button data-k="django">Django</button><button data-k="typeorm">TypeORM</button><button data-k="doc">Document MongoDB</button><button data-k="mongoose">Mongoose</button></div>
+<div data-panel="tables">
+<div class="two">
+<div class="scroll"><table><caption style="text-align:left;font:700 .85rem system-ui,sans-serif">auteur</caption><thead><tr><th>id</th><th>nom</th></tr></thead><tbody><tr><td>1</td><td>Frank Herbert</td></tr></tbody></table></div>
+<div class="scroll"><table><caption style="text-align:left;font:700 .85rem system-ui,sans-serif">livre</caption><thead><tr><th>id</th><th>titre</th><th>annee</th><th>auteur_id</th></tr></thead><tbody><tr><td>1</td><td>Dune</td><td>1965</td><td><b>1</b></td></tr><tr><td>2</td><td>Le Messie de Dune</td><td>1969</td><td><b>1</b></td></tr></tbody></table></div>
+</div>
+<p>Deux tables reliées par la clé étrangère <code>auteur_id</code>. Pour obtenir un auteur avec ses livres, il faut une <b>jointure</b>.</p>
+</div>
+<div data-panel="django" hidden>
+<pre><code>class Auteur(models.Model):
+    nom = models.CharField(max_length=100)
+
+class Livre(models.Model):
+    titre = models.CharField(max_length=100)
+    annee = models.IntegerField()
+    auteur = models.ForeignKey(Auteur, on_delete=models.CASCADE, related_name="livres")</code></pre>
+<p>Django inclut son propre ORM : ces classes suffisent pour créer les deux tables avec <code>makemigrations</code> et <code>migrate</code>.</p>
+</div>
+<div data-panel="typeorm" hidden>
+<pre><code>@Entity()
+export class Auteur {
+  @PrimaryGeneratedColumn() id: number;
+  @Column() nom: string;
+  @OneToMany(() =&gt; Livre, (livre) =&gt; livre.auteur) livres: Livre[];
+}
+
+@Entity()
+export class Livre {
+  @PrimaryGeneratedColumn() id: number;
+  @Column() titre: string;
+  @Column() annee: number;
+  @ManyToOne(() =&gt; Auteur, (auteur) =&gt; auteur.livres) auteur: Auteur;
+}</code></pre>
+<p>NestJS n'a pas d'ORM intégré : on lui branche TypeORM, et chaque classe <code>@Entity()</code> devient une table.</p>
+</div>
+<div data-panel="doc" hidden>
+<pre><code>{
+  "_id": "65f1...",
+  "nom": "Frank Herbert",
+  "livres": [
+    { "titre": "Dune", "annee": 1965 },
+    { "titre": "Le Messie de Dune", "annee": 1969 }
+  ]
+}</code></pre>
+<p>Un seul document contient l'auteur et ses livres : <b>une seule lecture</b> suffit, sans jointure. En contrepartie, un livre partagé entre plusieurs documents doit être dupliqué, ou rangé à part avec une référence.</p>
+</div>
+<div data-panel="mongoose" hidden>
+<pre><code>@Schema()
+export class Livre {
+  @Prop() titre: string;
+  @Prop() annee: number;
+}
+export const LivreSchema = SchemaFactory.createForClass(Livre);
+
+@Schema()
+export class Auteur {
+  @Prop() nom: string;
+  @Prop({ type: [LivreSchema] }) livres: Livre[];
+}
+export const AuteurSchema = SchemaFactory.createForClass(Auteur);</code></pre>
+<p>Le schéma <b>décrit</b> la forme des documents. C'est le modèle créé par Mongoose à partir de ce schéma qui fournit <code>find</code>, <code>create</code>...</p>
+</div>
+</section>
+
+<section id="operations">
+<h2>Les mêmes opérations côte à côte</h2>
+<div class="tabs"><button data-k="op-django">Django ORM</button><button data-k="op-typeorm">TypeORM</button><button data-k="op-mongoose">Mongoose</button></div>
+<div class="scroll" data-panel="op-django"><table><tbody>
+<tr><th>Créer</th><td><code>Livre.objects.create(titre="Dune", annee=1965)</code></td></tr>
+<tr><th>Tout lire</th><td><code>Livre.objects.all()</code></td></tr>
+<tr><th>Filtrer</th><td><code>Livre.objects.filter(annee=2020)</code></td></tr>
+<tr><th>Un seul</th><td><code>Livre.objects.get(id=1)</code></td></tr>
+<tr><th>Relation</th><td><code>Auteur.objects.prefetch_related("livres")</code></td></tr>
+<tr><th>Modifier</th><td><code>Livre.objects.filter(id=1).update(annee=1966)</code></td></tr>
+<tr><th>Supprimer</th><td><code>Livre.objects.filter(id=1).delete()</code></td></tr>
+</tbody></table></div>
+<div class="scroll" data-panel="op-typeorm" hidden><table><tbody>
+<tr><th>Créer</th><td><code>repo.save(repo.create({ titre: "Dune", annee: 1965 }))</code></td></tr>
+<tr><th>Tout lire</th><td><code>repo.find()</code></td></tr>
+<tr><th>Filtrer</th><td><code>repo.find({ where: { annee: 2020 } })</code></td></tr>
+<tr><th>Un seul</th><td><code>repo.findOneBy({ id: 1 })</code></td></tr>
+<tr><th>Relation</th><td><code>repo.find({ relations: { livres: true } })</code></td></tr>
+<tr><th>Modifier</th><td><code>repo.update(1, { annee: 1966 })</code></td></tr>
+<tr><th>Supprimer</th><td><code>repo.delete(1)</code></td></tr>
+</tbody></table></div>
+<div class="scroll" data-panel="op-mongoose" hidden><table><tbody>
+<tr><th>Créer</th><td><code>livreModel.create({ titre: "Dune", annee: 1965 })</code></td></tr>
+<tr><th>Tout lire</th><td><code>livreModel.find()</code></td></tr>
+<tr><th>Filtrer</th><td><code>livreModel.find({ annee: 2020 })</code></td></tr>
+<tr><th>Un seul</th><td><code>livreModel.findById(id)</code></td></tr>
+<tr><th>Relation</th><td><code>auteurModel.find().populate("livres")</code></td></tr>
+<tr><th>Modifier</th><td><code>livreModel.findByIdAndUpdate(id, { annee: 1966 })</code></td></tr>
+<tr><th>Supprimer</th><td><code>livreModel.deleteOne({ _id: id })</code></td></tr>
+</tbody></table></div>
+<p class="i">Dans NestJS, <code>repo</code> et <code>livreModel</code> sont injectés dans un service, avec <code>@InjectRepository(Livre)</code> ou <code>@InjectModel(Livre.name)</code>. Voir <a class="g" href="#d-repository">repository</a>.</p>
+
+<h3>Les outils par langage</h3>
+<div class="scroll"><table>
+<thead><tr><th>Langage</th><th>ORM (SQL)</th><th>ODM (MongoDB)</th></tr></thead>
+<tbody>
+<tr><th>Python</th><td>Django ORM, SQLAlchemy</td><td>MongoEngine, Beanie</td></tr>
+<tr><th>TypeScript / JS</th><td>TypeORM, Prisma, Sequelize, MikroORM</td><td>Mongoose</td></tr>
+<tr><th>Java</th><td>Hibernate, JPA</td><td>Spring Data MongoDB</td></tr>
+<tr><th>PHP</th><td>Eloquent, Doctrine ORM</td><td>Doctrine MongoDB ODM</td></tr>
+</tbody></table></div>
+<p class="i">Prisma et MikroORM savent parler aux deux familles. Et un framework n'est ni l'un ni l'autre : Django inclut son ORM, NestJS n'en inclut aucun.</p>
+
+<h3>Les pièges à connaître</h3>
+<div class="card"><b>ORM : les <a class="g" href="#d-n1">requêtes N+1</a></b>
+<pre><code>for livre in Livre.objects.all():   # 1 requête
+    print(livre.auteur.nom)         # + 1 requête par livre</code></pre>
+Avec 100 livres, 101 requêtes. La solution : <code>Livre.objects.select_related("auteur")</code>, une seule requête avec jointure.</div>
+<div class="card"><b>ODM : la structure qui dérive</b><br>La base n'impose rien : d'anciens documents peuvent garder une ancienne forme. Le code doit gérer ces cas, ou un script doit les mettre à jour.</div>
+<div class="card"><b>Des deux côtés : oublier que la requête existe</b><br>L'outil masque les requêtes sans les rendre gratuites. Vérifie ce qui part vraiment à la base : <code>print(queryset.query)</code> en Django, <code>logging: true</code> avec TypeORM.</div>
+</section>
+
+<section id="choisir">
+<h2>Choisir entre les deux</h2>
+<p>On ne choisit pas l'outil en premier, mais <b>la base</b> : l'outil en découle.</p>
+<div class="two">
+<div class="card"><h3>Base SQL + ORM si...</h3><ul class="pro">
+<li>les données sont très liées : utilisateurs, commandes, factures</li>
+<li>la cohérence est critique : argent, stocks, réservations</li>
+<li>tu as besoin de requêtes croisées et de statistiques</li>
+</ul></div>
+<div class="card"><h3>MongoDB + ODM si...</h3><ul class="pro">
+<li>la forme des données varie d'un élément à l'autre</li>
+<li>tu lis surtout des blocs complets d'un coup</li>
+<li>la structure évolue souvent, sans migrations</li>
+</ul></div>
+</div>
+<p class="key">En cas de doute, une base SQL est le choix par défaut le plus sûr. C'est aussi celui de Django, dont l'ORM ne gère que des bases relationnelles.</p>
+</section>
+
+<section id="glossaire">
+<h2>Glossaire</h2>
+<dl class="gl" id="defs"></dl>
+</section>
+</main>
+<button class="up" id="up">↑ Retour</button>
+
+<script>
+const TYPES=[
+["Relationnelle","Tables reliées par des clés, interrogées en SQL.","PostgreSQL, MySQL, SQLite","Applications métier, e-commerce, finance","Structure rigide"],
+["Documents","Documents JSON rangés dans des collections.","MongoDB, CouchDB, Firestore","Contenus, catalogues, profils, prototypes","Relations complexes difficiles"],
+["Clé-valeur","Une clé donne accès à une valeur, comme un dictionnaire géant.","Redis, DynamoDB, Memcached","Cache, sessions, compteurs, files d'attente","Pas de recherche par contenu"],
+["Colonnes larges","Lignes aux colonnes variables, réparties sur de nombreuses machines.","Cassandra, ScyllaDB, HBase","Très gros volumes d'écriture : messageries, capteurs, historiques","Les requêtes doivent être prévues dès la conception"],
+["Graphe","Nœuds reliés par des arêtes : les relations sont des données à part entière.","Neo4j, ArangoDB, Amazon Neptune","Réseaux sociaux, recommandations, détection de fraude","Moins adaptée aux traitements de masse"],
+["Séries temporelles","Mesures horodatées, optimisées pour l'écriture continue et les agrégats par période.","InfluxDB, TimescaleDB, Prometheus","Monitoring, capteurs, données financières","Spécialisée, peu polyvalente"],
+["Recherche","Index de texte intégral, avec tri par pertinence.","Elasticsearch, OpenSearch, Meilisearch","Recherche plein texte, analyse de logs","Rarement la source de vérité : complète une autre base"],
+["Vectorielle","Vecteurs numériques, recherche par similarité.","Qdrant, Pinecone, pgvector","Recherche sémantique, recommandations, IA","Usage très ciblé"],
+["Analytique","Données stockées colonne par colonne, interrogées en SQL.","ClickHouse, BigQuery, Snowflake","Tableaux de bord, statistiques sur des milliards de lignes","Lente pour les petites écritures fréquentes"],
+["NewSQL","SQL et ACID, répartis sur plusieurs machines.","CockroachDB, Google Spanner, TiDB","Applications mondiales qui ont besoin de SQL et de montée en charge","Plus complexe et plus coûteuse à exploiter"]
+];
+const G={
+relationnelle:["Base relationnelle","Base qui range les données dans des tables reliées entre elles, et qu'on interroge en SQL : PostgreSQL, MySQL, SQLite..."],
+acid:["ACID","Les quatre garanties d'une transaction SQL : <b>A</b>tomicité (tout ou rien), <b>C</b>ohérence (la base reste valide), <b>I</b>solation (les transactions simultanées ne se gênent pas) et <b>D</b>urabilité (les données validées ne sont pas perdues)."],
+coherence:["Cohérence à terme","Garantie plus souple, fréquente en NoSQL distribué : toutes les machines finissent par avoir la même valeur, mais pas forcément immédiatement. Une lecture peut brièvement renvoyer une ancienne valeur."],
+verticale:["Scalabilité verticale","Monter en charge en rendant une seule machine plus puissante. Simple, mais limitée par le matériel."],
+horizontale:["Scalabilité horizontale","Monter en charge en ajoutant des machines et en répartissant les données entre elles. Plus complexe, mais presque sans limite."],
+polyglotte:["Persistance polyglotte","Utiliser plusieurs bases dans une même application, chacune pour ce qu'elle fait le mieux."],
+orm:["ORM","<i>Object-Relational Mapping</i> : outil qui traduit des classes et des objets en tables et en lignes SQL, et génère les requêtes à ta place."],
+odm:["ODM","<i>Object-Document Mapping</i> : même principe que l'ORM, mais pour une base de documents comme MongoDB."],
+table:["Table","En SQL, ensemble de lignes qui ont toutes les mêmes colonnes. Un modèle d'ORM correspond à une table."],
+collection:["Collection","En MongoDB, ensemble de documents. L'équivalent d'une table, sans colonnes imposées."],
+document:["Document","En MongoDB, un enregistrement au format JSON, qui peut contenir des listes et des documents imbriqués."],
+fk:["Clé étrangère","Colonne qui contient l'identifiant d'une ligne d'une autre table, comme <code>auteur_id</code>. Elle relie les tables entre elles."],
+jointure:["Jointure","Opération SQL (<code>JOIN</code>) qui combine plusieurs tables à partir de leurs clés."],
+migration:["Migration","Fichier qui décrit une modification de la structure d'une base SQL. En Django : <code>makemigrations</code> pour l'écrire, <code>migrate</code> pour l'appliquer."],
+modele:["Modèle","Classe qui décrit une table (Django ORM) ou une collection (Mongoose). Dans Mongoose, c'est le modèle qui fournit <code>find</code>, <code>create</code>..."],
+entite:["Entité","Nom du modèle dans TypeORM : une classe décorée avec <code>@Entity()</code>, qui correspond à une table."],
+schema:["Schéma","Description de la forme des données : champs, types, valeurs obligatoires. Avec Mongoose, c'est lui qui impose une structure, puisque MongoDB n'en impose pas."],
+repository:["Repository","Dans TypeORM, l'objet qui fournit les opérations sur une entité (<code>find</code>, <code>save</code>, <code>delete</code>...), injecté dans un service NestJS."],
+populate:["populate","Méthode de Mongoose qui remplace une référence par le document qu'elle désigne. L'équivalent le plus proche d'une jointure côté MongoDB."],
+n1:["Requêtes N+1","Piège des ORM : une requête pour la liste, puis une requête de plus pour chaque élément quand on accède à une relation dans une boucle."]
+};
+const $=s=>document.querySelector(s);
+function bind(tabs){
+  const sec=tabs.parentElement;
+  const btns=[...tabs.querySelectorAll('button')];
+  const show=k=>{btns.forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+    btns.forEach(b=>sec.querySelectorAll(':scope > [data-panel="'+b.dataset.k+'"]').forEach(p=>p.hidden=b.dataset.k!==k));};
+  btns.forEach(b=>b.onclick=()=>show(b.dataset.k));
+  if(btns.length)show(btns[0].dataset.k);
+}
+$('#type-tabs').innerHTML=TYPES.map((t,i)=>`<button data-t="${i}">${t[0]}</button>`).join('');
+function showType(i){
+  document.querySelectorAll('#type-tabs button').forEach(b=>b.classList.toggle('on',+b.dataset.t===i));
+  const [n,p,e,u,l]=TYPES[i];
+  $('#type-card').innerHTML=`<dl><dt>Principe</dt><dd>${p}</dd><dt>Exemples</dt><dd>${e}</dd><dt>Idéal pour</dt><dd>${u}</dd><dt>Limites</dt><dd>${l}</dd></dl>`;
+}
+document.querySelectorAll('#type-tabs button').forEach(b=>b.onclick=()=>showType(+b.dataset.t));
+showType(0);
+document.querySelectorAll('.tabs:not(#type-tabs)').forEach(bind);
+$('#defs').innerHTML=Object.entries(G).map(([id,[n,t]])=>`<div id="d-${id}"><dt>${n}</dt><dd>${t}</dd></div>`).join('');
+let y=0;
+document.addEventListener('click',e=>{if(e.target.closest('a.g'))y=window.scrollY});
+$('#up').onclick=()=>window.scrollTo({top:y||0,behavior:'smooth'});
+</script>
+</body>
+</html>
