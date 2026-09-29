@@ -165,7 +165,7 @@ def index(request):
 
 ```mermaid
 flowchart LR
-    A[Navigateur] -->|GET /ex02| B[runserver]
+    A[Navigateur] -->|GET /ex02| B[Serveur(runserver, WSGI)]
     B --> C[Middlewares]
     C --> D[urls.py]
     D --> E[Vue]
