@@ -174,11 +174,12 @@ flowchart LR
 ```
 
 1. Le **navigateur** envoie une [requête HTTP](#requête-http).
-2. Les [middlewares](#middleware) la traitent : sessions, CSRF, authentification.
-3. L'[URLconf](#urlconf) trouve la vue associée à l'URL.
-4. La [vue](#vue) exécute la logique et prépare le [contexte](#contexte).
-5. Le [template](#template) génère le HTML avec ces données.
-6. Le navigateur affiche la page, puis envoie **une requête par fichier statique** (CSS, images...).
+2. Le **serveur** (`runserver` en développement) la reçoit et la transmet à Django via WSGI.
+3. Les [middlewares](#middleware) la traitent : sessions, CSRF, authentification.
+4. L'[URLconf](#urlconf) trouve la vue associée à l'URL.
+5. La [vue](#vue) exécute la logique et prépare le [contexte](#contexte).
+6. Le [template](#template) génère le HTML avec ces données.
+7. Le navigateur affiche la page, puis envoie **une requête par fichier statique** (CSS, images...).
 
 ### Formulaire avec redirection (Post/Redirect/Get)
 
