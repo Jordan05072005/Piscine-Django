@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Ex01 : Moteur de template.{% endblock %}
+
+{% block style %}
+body { font-family: system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
+h1 { color: #0c4b33; border-bottom: 3px solid #0c4b33; padding-bottom: .3rem; }
+h2 { color: #0c4b33; margin-top: 2rem; }
+pre { background: #f6f8fa; padding: .8rem; border-radius: 6px; overflow-x: auto; }
+code { background: #f3f3f3; padding: .1rem .3rem; border-radius: 3px; }
+pre code { background: none; padding: 0; }
+.demo { background: #f0f5f2; border-left: 4px solid #0c4b33; padding: .5rem 1rem; border-radius: 4px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+th { background: #f0f5f2; }
+{% endblock %}
+
+{% block content %}
+
+
+
+<h1>Ex01 : Moteur de template.</h1>
+
+<p>
+    Le moteur par défaut de Django, le <strong>Django Template Language</strong> (DTL), transforme un fichier
+    HTML contenant des balises spéciales en HTML final. Il est volontairement limité : on y affiche des données
+    et on y fait un peu de logique de présentation, mais la vraie logique reste dans les vues.
+</p>
+
+<h2>Les trois syntaxes</h2>
+<table>
+    <tr><th>Syntaxe</th><th>Rôle</th></tr>
+    <tr><td><code>{% verbatim %}{{ variable }}{% endverbatim %}</code></td><td>Affiche la valeur d'une variable</td></tr>
+    <tr><td><code>{% verbatim %}{% balise %}{% endverbatim %}</code></td><td>Exécute une instruction (bloc, boucle, condition...)</td></tr>
+    <tr><td><code>{% verbatim %}{# commentaire #}{% endverbatim %}</code></td><td>Commentaire, absent du HTML produit</td></tr>
+</table>
+
+<h2>Afficher des variables passées par contexte</h2>
+<p>
+    La vue transmet un dictionnaire, le <strong>contexte</strong>, à <code>render()</code>. Chaque clé devient
+    une variable utilisable dans le template.
+</p>
+<pre><code>{% verbatim %}# views.py
+def page(request):
+    contexte = {"nom": "Django", "annee": 2005}
+    return render(request, "ex01/page.html", contexte)
+
+    <!-- page.html -->
+<p>{{ nom }} est né en {{ annee }}.</p>{% endverbatim %}</code></pre>
+<ul>
+    <li>Le point accède à un attribut, une clé de dictionnaire ou un index :
+        <code>{% verbatim %}{{ user.username }}{% endverbatim %}</code>,
+        <code>{% verbatim %}{{ dico.cle }}{% endverbatim %}</code>,
+        <code>{% verbatim %}{{ liste.0 }}{% endverbatim %}</code>.</li>
+    <li>Une variable inexistante s'affiche vide, sans provoquer d'erreur.</li>
+    <li>Les <strong>filtres</strong> transforment une valeur avec le symbole <code>|</code> :
+        <code>{% verbatim %}{{ nom|upper }}{% endverbatim %}</code>,
+        <code>{% verbatim %}{{ liste|length }}{% endverbatim %}</code>,
+        <code>{% verbatim %}{{ x|default:"inconnu" }}{% endverbatim %}</code>.</li>
+    <li>Par défaut, les caractères HTML (<code>&lt;</code>, <code>&amp;</code>...) sont échappés automatiquement,
+        ce qui protège contre les attaques XSS.</li>
+</ul>
+
+<h2>Les blocs et l'héritage</h2>
+<p>
+    Un template <em>parent</em> définit des zones nommées avec
+    <code>{% verbatim %}{% block nom %}{% endblock %}{% endverbatim %}</code>. Un template <em>enfant</em> commence
+    par <code>{% verbatim %}{% extends "base.html" %}{% endverbatim %}</code> (toujours en première balise) et
+    remplit ces zones. Ce qui n'est pas redéfini garde le contenu du parent.
+</p>
+<pre><code>{% verbatim %}<!-- base.html -->
+<title>{% block title %}Mon site{% endblock %}</title>
+<body>{% block content %}{% endblock %}</body>
+
+    <!-- enfant.html -->
+{% extends "base.html" %}
+{% block title %}Ma page{% endblock %}
+{% block content %}<h1>Bonjour</h1>{% endblock %}{% endverbatim %}</code></pre>
+<p>
+    <code>{% verbatim %}{{ block.super }}{% endverbatim %}</code> insère le contenu du bloc parent.
+    Hors d'un bloc, un template enfant n'affiche rien.
+</p>
+
+<h2>Les boucles <code>for ... in</code></h2>
+<pre><code>{% verbatim %}<ul>
+  {% for langage in langages %}
+    <li>{{ forloop.counter }}. {{ langage }}</li>
+  {% empty %}
+    <li>Aucun langage.</li>
+  {% endfor %}
+</ul>{% endverbatim %}</code></pre>
+<ul>
+    <li><code>{% verbatim %}{% empty %}{% endverbatim %}</code> s'exécute quand la liste est vide (optionnel).</li>
+    <li>La variable <code>forloop</code> est disponible dans la boucle :
+        <code>forloop.counter</code> (à partir de 1), <code>forloop.counter0</code> (à partir de 0),
+        <code>forloop.first</code>, <code>forloop.last</code>.</li>
+    <li>On peut parcourir un dictionnaire avec
+        <code>{% verbatim %}{% for cle, valeur in dico.items %}{% endverbatim %}</code>.</li>
+</ul>
+
+<h2>Les structures de contrôle <code>if</code></h2>
+<pre><code>{% verbatim %}{% if annee < 2010 %}
+  <p>Ancien.</p>
+{% elif annee < 2020 %}
+  <p>Récent.</p>
+{% else %}
+  <p>Très récent.</p>
+{% endif %}{% endverbatim %}</code></pre>
+<ul>
+    <li>Opérateurs : <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>,
+        <code>&gt;=</code>, <code>in</code>, <code>not in</code>, <code>and</code>, <code>or</code>,
+        <code>not</code>.</li>
+    <li>Une variable seule est vraie si elle n'est ni vide, ni <code>0</code>, ni <code>False</code>,
+        ni <code>None</code> :
+        <code>{% verbatim %}{% if langages %}{% endverbatim %}</code>.</li>
+    <li>Tout <code>if</code> doit se terminer par <code>{% verbatim %}{% endif %}{% endverbatim %}</code>,
+        tout <code>for</code> par <code>{% verbatim %}{% endfor %}{% endverbatim %}</code>.</li>
+</ul>
+
+<h2>Démonstration en direct</h2>
+<p>Ce bloc est produit par le moteur de template, avec les variables envoyées par la vue.</p>
+<div class="demo">
+    <p>Variable : <strong>{{ nom }}</strong> (en majuscules : {{ nom|upper }}), publié en {{ annee }}.</p>
+    <p>Boucle sur {{ langages|length }} langages :</p>
+    <ul>
+        {% for langage in langages %}
+        <li>{{ forloop.counter }}. {{ langage }}{% if forloop.last %} (dernier){% endif %}</li>
+        {% empty %}
+        <li>Aucun langage.</li>
+        {% endfor %}
+    </ul>
+    {% if annee < 2010 %}
+    <p>Condition : {{ nom }} date d'avant 2010.</p>
+    {% elif annee < 2020 %}
+    <p>Condition : {{ nom }} date des années 2010.</p>
+    {% else %}
+    <p>Condition : {{ nom }} est très récent.</p>
+    {% endif %}
+</div>
+{% endblock %}

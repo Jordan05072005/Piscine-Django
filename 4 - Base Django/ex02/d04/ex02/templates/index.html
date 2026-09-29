@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+        <style>
+            form {
+                text-align: center;
+            }
+            body {
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+    <form  method="post">
+
+        {% csrf_token %}
+        <!-- Token Permettant d'éviter que un autre site envoyé une request post -->
+        {{ form }}
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <h2>Historique</h2>
+    <ul>
+        {% for h in history %}
+        <li>{{h}}</li>
+        {% empty %}
+        <li>Aucune donnée.</li>
+        {% endfor %}
+    </ul>
+
+
+    </body>
+</html>

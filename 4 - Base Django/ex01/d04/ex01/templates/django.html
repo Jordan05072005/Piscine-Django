@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Ex01 : Django, framework web.{% endblock %}
+
+{% block style %}
+
+body { font-family: system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
+h1 { color: #0c4b33; border-bottom: 3px solid #0c4b33; padding-bottom: .3rem; }
+h2 { color: #0c4b33; margin-top: 2rem; }
+.timeline { list-style: none; padding-left: 0; border-left: 3px solid #0c4b33; }
+.timeline li { margin: 0 0 1rem 1rem; padding-left: .5rem; }
+.timeline strong { color: #0c4b33; }
+code { background: #f3f3f3; padding: .1rem .3rem; border-radius: 3px; }
+{% endblock %}
+
+{% block content %}
+
+
+<h1>Ex01 : Django, framework web.</h1>
+
+<h2>Qu'est-ce que Django ?</h2>
+<p>
+    <strong>Django</strong> est un framework web open source écrit en <strong>Python</strong>.
+    Il fournit tout ce qu'il faut pour construire un site : routage des URLs, accès à la base de données,
+    moteur de templates, formulaires, authentification, interface d'administration, protection contre
+    les failles courantes (CSRF, XSS, injection SQL).
+    Sa devise est : <em>« le framework web pour les perfectionnistes qui ont des deadlines »</em>.
+</p>
+
+<h2>Historique</h2>
+<ul class="timeline">
+    <li><strong>2003</strong> : Adrian Holovaty et Simon Willison développent Django au sein du journal
+        <em>Lawrence Journal-World</em> (Kansas, États-Unis). Les journalistes ont besoin de sites et de
+        fonctionnalités en quelques jours : le framework naît de ce besoin de rapidité.</li>
+    <li><strong>Juillet 2005</strong> : le projet est publié en open source sous licence BSD.
+        Il porte le nom du guitariste de jazz <em>Django Reinhardt</em>.</li>
+    <li><strong>2008</strong> : création de la <em>Django Software Foundation</em>, qui porte le projet,
+        et sortie de la version <strong>1.0</strong> en septembre.</li>
+    <li><strong>Décembre 2017</strong> : Django 2.0, première version réservée à Python 3.</li>
+    <li><strong>Décembre 2019</strong> : Django 3.0, avec le support d'ASGI (asynchrone).</li>
+    <li><strong>Depuis</strong> : une nouvelle version environ tous les huit mois, et une version
+        à support long terme (LTS) tous les deux ans. Django 5.2 est une version LTS.</li>
+</ul>
+
+<h2>Principes de conception</h2>
+<ul>
+    <li><strong>« Batteries included »</strong> : l'essentiel est fourni d'origine.</li>
+    <li><strong>MVT</strong> (Model, View, Template) : les données, la logique et l'affichage sont séparés.</li>
+    <li><strong>DRY</strong> (<em>Don't Repeat Yourself</em>) : on évite de répéter le même code.</li>
+    <li><strong>ORM</strong> : on manipule la base de données avec des objets Python plutôt qu'en SQL.</li>
+    <li><strong>Sécurité</strong> et <strong>évolutivité</strong> : le framework est pensé pour tenir la charge.</li>
+</ul>
+
+<h2>Qui l'utilise ?</h2>
+<p>Django fait tourner de nombreux sites, dont Instagram et Mozilla.</p>
+{% endblock %}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ex00 : Markdown Cheatsheet.</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #222; }
+        h1 { border-bottom: 3px solid #444; padding-bottom: .3rem; }
+        h2 { margin-top: 2.2rem; border-bottom: 1px solid #ccc; padding-bottom: .2rem; }
+        table { border-collapse: collapse; width: 100%; margin: .8rem 0; }
+        th, td { border: 1px solid #ccc; padding: .5rem .7rem; vertical-align: top; text-align: left; }
+        th { background: #f0f0f0; }
+        pre { background: #f6f8fa; padding: .6rem; margin: 0; overflow-x: auto; white-space: pre-wrap; }
+        code { background: #f6f8fa; padding: .1rem .3rem; border-radius: 3px; }
+        pre code { padding: 0; background: none; }
+        blockquote { margin: 0; padding-left: .8rem; border-left: 4px solid #bbb; color: #555; }
+        nav a { margin-right: .8rem; }
+        footer { margin-top: 3rem; color: #777; font-size: .9rem; }
+    </style>
+</head>
+<body>
+
+<h1>Ex00 : Markdown Cheatsheet.</h1>
+<p>Toute la syntaxe Markdown : à gauche ce que l'on écrit, à droite ce que l'on obtient.</p>
+
+<nav>
+    <a href="#titres">Titres</a>
+    <a href="#texte">Texte</a>
+    <a href="#listes">Listes</a>
+    <a href="#liens">Liens et images</a>
+    <a href="#code">Code</a>
+    <a href="#citations">Citations</a>
+    <a href="#tableaux">Tableaux</a>
+    <a href="#autres">Autres</a>
+</nav>
+
+<h2 id="titres">1. Titres</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><pre><code># Titre 1
+## Titre 2
+### Titre 3
+#### Titre 4
+##### Titre 5
+###### Titre 6</code></pre></td>
+        <td>
+            <h1 style="border:none;margin:0">Titre 1</h1>
+            <h2 style="border:none;margin:0">Titre 2</h2>
+            <h3 style="margin:0">Titre 3</h3>
+            <h4 style="margin:0">Titre 4</h4>
+            <h5 style="margin:0">Titre 5</h5>
+            <h6 style="margin:0">Titre 6</h6>
+        </td>
+    </tr>
+    <tr>
+        <td><pre><code>Titre 1
+=======
+
+Titre 2
+-------</code></pre></td>
+        <td>Autre syntaxe (soulignement) pour les niveaux 1 et 2.</td>
+    </tr>
+</table>
+
+<h2 id="texte">2. Mise en forme du texte</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr><td><code>*italique*</code> ou <code>_italique_</code></td><td><em>italique</em></td></tr>
+    <tr><td><code>**gras**</code> ou <code>__gras__</code></td><td><strong>gras</strong></td></tr>
+    <tr><td><code>***gras et italique***</code></td><td><strong><em>gras et italique</em></strong></td></tr>
+    <tr><td><code>~~barré~~</code></td><td><del>barré</del></td></tr>
+    <tr><td><code>`code en ligne`</code></td><td><code>code en ligne</code></td></tr>
+    <tr><td><code>H~2~O</code> et <code>x^2^</code> (selon les moteurs)</td><td>H<sub>2</sub>O et x<sup>2</sup></td></tr>
+    <tr>
+        <td><pre><code>Un paragraphe.
+
+Un autre paragraphe,
+séparé par une ligne vide.</code></pre></td>
+        <td><p>Un paragraphe.</p><p>Un autre paragraphe, séparé par une ligne vide.</p></td>
+    </tr>
+    <tr>
+        <td><pre><code>Fin de ligne avec deux espaces
+saut de ligne simple
+
+ou une barre oblique\
+inversée</code></pre></td>
+        <td>Fin de ligne avec deux espaces<br>saut de ligne simple<br><br>ou une barre oblique<br>inversée</td>
+    </tr>
+    <tr>
+        <td><pre><code>---
+***
+___</code></pre></td>
+        <td>Ligne horizontale (trois signes ou plus).<hr></td>
+    </tr>
+</table>
+
+<h2 id="listes">3. Listes</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><pre><code>- Élément
+- Élément
+  - Sous-élément
+  - Sous-élément
+* Autre marqueur possible
++ Autre marqueur possible</code></pre></td>
+        <td>
+            <ul>
+                <li>Élément</li>
+                <li>Élément
+                    <ul><li>Sous-élément</li><li>Sous-élément</li></ul>
+                </li>
+                <li>Autre marqueur possible</li>
+                <li>Autre marqueur possible</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><pre><code>1. Premier
+2. Deuxième
+   1. Sous-étape
+3. Troisième</code></pre></td>
+        <td>
+            <ol>
+                <li>Premier</li>
+                <li>Deuxième
+                    <ol><li>Sous-étape</li></ol>
+                </li>
+                <li>Troisième</li>
+            </ol>
+        </td>
+    </tr>
+    <tr>
+        <td><pre><code>- [x] Tâche faite
+- [ ] Tâche à faire</code></pre></td>
+        <td>
+            <ul style="list-style:none;padding-left:0">
+                <li><input type="checkbox" checked disabled> Tâche faite</li>
+                <li><input type="checkbox" disabled> Tâche à faire</li>
+            </ul>
+            Listes de tâches (extension GitHub).
+        </td>
+    </tr>
+</table>
+
+<h2 id="liens">4. Liens et images</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><code>[Texte du lien](https://www.markdownguide.org)</code></td>
+        <td><a href="https://www.markdownguide.org">Texte du lien</a></td>
+    </tr>
+    <tr>
+        <td><code>[Lien avec titre](https://example.com "Titre au survol")</code></td>
+        <td><a href="https://example.com" title="Titre au survol">Lien avec titre</a></td>
+    </tr>
+    <tr>
+        <td><code>&lt;https://example.com&gt;</code></td>
+        <td>Lien automatique : <a href="https://example.com">https://example.com</a></td>
+    </tr>
+    <tr>
+        <td><pre><code>[Lien par référence][ref]
+
+[ref]: https://example.com</code></pre></td>
+        <td><a href="https://example.com">Lien par référence</a></td>
+    </tr>
+    <tr>
+        <td><code>![Texte alternatif](image.png "Titre optionnel")</code></td>
+        <td>Insère l'image <code>image.png</code> (<code>&lt;img src="image.png" alt="Texte alternatif"&gt;</code>).</td>
+    </tr>
+    <tr>
+        <td><code>[![Alt](image.png)](https://example.com)</code></td>
+        <td>Une image cliquable : une image placée dans un lien.</td>
+    </tr>
+</table>
+
+<h2 id="code">5. Code</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><code>Utilise `print()` ici.</code></td>
+        <td>Utilise <code>print()</code> ici.</td>
+    </tr>
+    <tr>
+        <td><pre><code>```python
+def hello():
+    print("Hello")
+```</code></pre></td>
+        <td><pre><code>def hello():
+    print("Hello")</code></pre>Bloc de code délimité, avec le nom du langage pour la coloration.</td>
+    </tr>
+    <tr>
+        <td><pre><code>    bloc indenté
+    de 4 espaces</code></pre></td>
+        <td><pre><code>bloc indenté
+de 4 espaces</code></pre></td>
+    </tr>
+</table>
+
+<h2 id="citations">6. Citations</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><pre><code>&gt; Une citation.
+&gt;
+&gt; &gt; Une citation imbriquée.</code></pre></td>
+        <td>
+            <blockquote>
+                <p>Une citation.</p>
+                <blockquote><p>Une citation imbriquée.</p></blockquote>
+            </blockquote>
+        </td>
+    </tr>
+</table>
+
+<h2 id="tableaux">7. Tableaux</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><pre><code>| Nom   | Âge | Ville  |
+|:------|:---:|-------:|
+| Alice | 30  | Paris  |
+| Bob   | 25  | Rennes |</code></pre></td>
+        <td>
+            <table>
+                <tr><th style="text-align:left">Nom</th><th style="text-align:center">Âge</th><th style="text-align:right">Ville</th></tr>
+                <tr><td style="text-align:left">Alice</td><td style="text-align:center">30</td><td style="text-align:right">Paris</td></tr>
+                <tr><td style="text-align:left">Bob</td><td style="text-align:center">25</td><td style="text-align:right">Rennes</td></tr>
+            </table>
+            Les deux-points de la ligne <code>---</code> règlent l'alignement : <code>:---</code> gauche, <code>:---:</code> centre, <code>---:</code> droite.
+        </td>
+    </tr>
+</table>
+
+<h2 id="autres">8. Autres éléments</h2>
+<table>
+    <tr><th>Markdown</th><th>Résultat</th></tr>
+    <tr>
+        <td><pre><code>Une phrase avec une note.[^1]
+
+[^1]: Le texte de la note.</code></pre></td>
+        <td>Une phrase avec une note.<sup>1</sup><br><small>1. Le texte de la note.</small><br>Notes de bas de page (extension).</td>
+    </tr>
+    <tr>
+        <td><code>\*Ce texte n'est pas en italique\*</code></td>
+        <td>*Ce texte n'est pas en italique*<br>Le <code>\</code> échappe un caractère spécial. Caractères concernés : <code>\ ` * _ { } [ ] ( ) # + - . ! |</code></td>
+    </tr>
+    <tr>
+        <td><code>Du &lt;mark&gt;HTML&lt;/mark&gt; est accepté.</code></td>
+        <td>Du <mark>HTML</mark> est accepté.</td>
+    </tr>
+    <tr>
+        <td><code>&lt;!-- Un commentaire invisible --&gt;</code></td>
+        <td>Un commentaire HTML n'apparaît pas dans le rendu.</td>
+    </tr>
+    <tr>
+        <td><pre><code>Terme
+: Définition (extension)</code></pre></td>
+        <td><dl><dt>Terme</dt><dd>Définition</dd></dl>Listes de définitions (selon les moteurs).</td>
+    </tr>
+</table>
+
+<footer>
+    <p>Certaines syntaxes (tableaux, tâches, barré, notes, définitions) sont des extensions : elles dépendent du moteur Markdown utilisé.</p>
+</footer>
+
+</body>
+</html>

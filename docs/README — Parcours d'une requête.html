@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>README — Parcours d'une requête : techniques de rendu et back</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d2226;--mut:#5f6b73;--card:#eef1f0;--acc:#0b6b5c;--hl:#ffefb0;--bd:#d5dbd8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181a;--fg:#e6ebe9;--mut:#93a09b;--card:#1b2427;--acc:#5fd1b8;--hl:#4d4212;--bd:#2c3a3d}}
+:root[data-theme="dark"]{--bg:#12181a;--fg:#e6ebe9;--mut:#93a09b;--card:#1b2427;--acc:#5fd1b8;--hl:#4d4212;--bd:#2c3a3d}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Georgia,'Iowan Old Style',serif}
+main{max-width:720px;margin:0 auto;padding:24px 16px 90px}
+h1{font-size:1.9rem;line-height:1.2;margin:.2em 0}
+h2{margin:2.4rem 0 .4rem;font-size:1.35rem}
+p.i{color:var(--mut);margin:.2rem 0 .8rem}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 8px}
+.tabs button{padding:8px 20px;border:1px solid var(--bd);border-radius:999px;background:var(--card);color:var(--fg);font:600 .95rem system-ui,sans-serif;cursor:pointer}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.tools{margin:0 0 18px;padding:8px 12px;border-left:3px solid var(--acc);font-size:.95rem}
+.tools .full{display:block;color:var(--mut);font-size:.88rem}
+.flow{list-style:none;padding:0;margin:0}
+.flow li{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;margin-bottom:24px;position:relative}
+.flow li.opt{background:transparent;border-style:dashed}
+.flow li:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-23px;width:20px;margin-left:-10px;text-align:center;color:var(--mut)}
+.flow a{font:700 1rem system-ui,sans-serif;color:var(--acc);text-decoration:none;border-bottom:1px dashed}
+.flow span{display:block;color:var(--mut);font-size:.92rem}
+.tag{display:inline-block;margin-left:8px;padding:0 8px;border:1px solid var(--bd);border-radius:999px;font:600 .75rem system-ui,sans-serif;color:var(--mut);vertical-align:2px}
+.legend{font-size:.88rem;color:var(--mut);margin:0 0 14px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:14px}
+td,th{border-bottom:1px solid var(--bd);padding:6px 8px;text-align:left}
+dl{margin:0}
+dl div{padding:10px 12px;border-radius:8px;scroll-margin-top:12px}
+dl div:target{background:var(--hl)}
+dt{font:700 1rem system-ui,sans-serif}
+dd{margin:2px 0 0}
+code{background:var(--card);padding:1px 5px;border-radius:4px;font-size:.88em}
+.up{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));padding:8px 14px;border:1px solid var(--bd);border-radius:999px;background:var(--card);color:var(--fg);font:600 .9rem system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<main id="top">
+<h1>Parcours d'une requête : techniques de rendu et back</h1>
+<p class="i">Clique sur un terme d'un schéma pour aller à sa définition, plus bas dans le glossaire.</p>
+
+<section id="front">
+<h2>1. Front : les quatre techniques de rendu</h2>
+<p class="i">Où et quand le HTML est-il construit ? À chaque requête sur le serveur, dans le navigateur, une fois au build, ou au build puis régénéré en tâche de fond.</p>
+<div class="tabs"></div>
+<p class="tools"></p>
+<ol class="flow"></ol>
+</section>
+
+<section id="back">
+<h2>2. Back : le trajet classique</h2>
+<p class="i">Le chemin d'une requête dans un framework back, quel qu'il soit.</p>
+<p class="legend">Les étapes en pointillés sont optionnelles : elles n'existent que dans certains frameworks ou langages.</p>
+<ol class="flow"></ol>
+<table>
+<tr><th>Django</th><th>NestJS</th></tr>
+<tr><td>Middleware</td><td>Middleware</td></tr>
+<tr><td>urls.py</td><td>Décorateurs <code>@Get()</code>, <code>@Post()</code></td></tr>
+<tr><td>Vue</td><td>Controller</td></tr>
+<tr><td>Décorateurs de permissions</td><td>Guard</td></tr>
+<tr><td>Formulaires / serializers DRF</td><td>Pipe + DTO</td></tr>
+<tr><td>Modèle / ORM</td><td>Service + TypeORM ou Prisma</td></tr>
+</table>
+</section>
+
+<section id="glossaire">
+<h2>Glossaire</h2>
+<dl id="defs"></dl>
+</section>
+</main>
+<button class="up" id="up">↑ Retour au schéma</button>
+
+<script>
+const D={
+nav:["Navigateur","Le programme (Chrome, Firefox...) qui envoie les requêtes HTTP et affiche ce qu'il reçoit : HTML, JSON ou JS."],
+req:["Requête HTTP","Message envoyé au serveur : une méthode (GET, POST...), une URL, des en-têtes et parfois un corps (JSON, formulaire)."],
+wsgi:["WSGI / ASGI","Propre à Python. Interface entre le serveur web (gunicorn, uvicorn, runserver) et le framework (Django, Flask, FastAPI). WSGI est synchrone ; ASGI gère aussi l'async et les WebSockets. En Node (NestJS, Express), le serveur HTTP fait partie du process : pas d'équivalent."],
+mw:["Middleware","Fonction exécutée autour de chaque requête : sessions, CSRF, CORS, logs, authentification. Django : liste <code>MIDDLEWARE</code> de <code>settings.py</code>, la requête descend la liste et la réponse la remonte. NestJS : fonction de style Express <code>(req, res, next)</code> exécutée avant le routage, déclarée dans <code>configure()</code> du module ou avec <code>app.use()</code> ; elle ne sait pas quel controller sera appelé."],
+route:["Routage","Associe chaque URL à un handler. Django : <code>urls.py</code>, par exemple <code>path('livres/', views.liste)</code>. NestJS : décorateurs <code>@Get()</code>, <code>@Post()</code> sur le controller."],
+guard:["Guard","Propre à NestJS. Classe avec <code>canActivate(context)</code> qui autorise ou refuse l'accès. Elle connaît le handler visé et lit ses métadonnées (<code>@Roles</code>). En Django, le rôle est tenu par des décorateurs (<code>@login_required</code>) ou les permission classes de DRF."],
+itc:["Interceptor","Propre à NestJS. S'exécute avant et après le handler : mesure le temps, transforme la réponse, gère un cache."],
+pipe:["Pipe","Propre à NestJS. Valide ou transforme les données entrantes (<code>ValidationPipe</code> avec les DTO, <code>ParseIntPipe</code>...). En Django, la validation se fait dans les formulaires ou les serializers DRF, à l'intérieur de la vue."],
+ctrl:["Controller / Vue","Reçoit la requête, appelle la logique et retourne une réponse. NestJS : classe controller. Django : on l'appelle « vue » (fonction ou classe comme <code>ListView</code>), ce qui correspond au controller et non à la partie visuelle."],
+svc:["Service / logique métier","Le code qui fait le vrai travail. NestJS : classe <code>@Injectable</code> injectée dans le controller. Django : souvent directement dans la vue ou dans les méthodes du modèle."],
+orm:["Modèle / ORM","L'ORM traduit des classes en tables SQL : <code>Livre.objects.all()</code> devient un <code>SELECT</code>. Côté NestJS, on passe par TypeORM ou Prisma dans un service."],
+tpl:["Template","Fichier HTML avec des balises du moteur de templates (Django : <code>{% extends %}</code>, <code>{{ variable }}</code>). Il affiche les données fournies par la vue. Utilisé seulement en rendu serveur : une API renvoie du JSON à la place."],
+filter:["Exception filter","Propre à NestJS. Attrape les exceptions levées dans le pipeline et construit la réponse d'erreur (<code>@UseFilters</code>). En Django, ce sont les vues d'erreur (<code>handler404</code>...) ou le middleware qui s'en chargent."],
+resp:["Réponse HTTP","Ce que le serveur renvoie : un code (200, 404...), des en-têtes et un corps (HTML ou JSON)."],
+idx:["index.html","Page HTML quasi vide envoyée une seule fois par le serveur. Elle contient un <code>&lt;div id='root'&gt;</code> et la balise script qui charge le bundle JS."],
+bundle:["Bundle JS","Fichier(s) JavaScript final(s) produit(s) par un bundler (Vite, webpack, esbuild) à partir de tout ton code et de <code>node_modules</code>. Il transpile le JSX et le TypeScript, minifie, retire le code inutilisé (tree-shaking), découpe en morceaux chargés à la demande (code splitting) et ajoute un hash au nom pour le cache. Généré par <code>npm run build</code>."],
+router:["Router front","Bibliothèque de routage côté navigateur (React Router, Vue Router...) : elle affiche le composant qui correspond à l'URL sans recharger la page. Équivalent de <code>urls.py</code>."],
+comp:["Composant","Fonction qui retourne du JSX (ou un template Vue/Angular). Elle fusionne la logique (state, hooks comme <code>useEffect</code>) et l'affichage : elle joue à la fois le rôle de la vue et du template Django."],
+api:["Appel API (fetch)","Requête HTTP faite depuis le JS (<code>fetch</code> ou axios) vers le back, qui répond en JSON. C'est le lien entre le front et Django ou NestJS."],
+jsx:["JSX / mise à jour du DOM","Syntaxe qui mélange HTML et JavaScript dans un composant. Le bundler la convertit en JS. React s'en sert pour mettre à jour le DOM quand le state change."],
+build:["Build","Étape exécutée une fois avant la mise en ligne (<code>npm run build</code>). En SSG, le générateur appelle les données (API, CMS, fichiers Markdown) et écrit un fichier HTML complet par page."],
+cdn:["CDN / hébergement statique","Réseau de serveurs qui stocke des fichiers et les sert depuis le point le plus proche de l'utilisateur (Cloudflare, Netlify, Vercel...). Aucun code ne tourne à la requête : il renvoie le fichier tel quel, donc très vite."],
+reval:["Revalidation","Propre à l'ISR. Chaque page a une durée de fraîcheur (par exemple <code>revalidate: 60</code> dans Next.js). Passé ce délai, la requête suivante reçoit encore l'ancienne version, mais déclenche la régénération de la page en arrière-plan."],
+hydra:["Hydratation","Le HTML arrive déjà rempli, puis le JS du framework se charge et « branche » les événements (clics, formulaires) sur ce HTML existant, sans le reconstruire. La page devient interactive."]
+};
+const T={
+ssr:["SSR","Server-Side Rendering : le serveur génère le HTML complet à chaque requête.","<b>Django</b>, <b>Ruby on Rails</b>, <b>Laravel</b>, <b>Express + EJS</b>"],
+csr:["CSR","Client-Side Rendering : le navigateur reçoit du JS et construit la page lui-même.","<b>React</b> (avec Vite), <b>Vue</b>, <b>Angular</b>"],
+ssg:["SSG","Static Site Generation : toutes les pages sont générées une fois, au build, puis servies comme fichiers.","<b>Astro</b>, <b>Hugo</b>, <b>Gatsby</b>, <b>Next.js</b> (export statique)"],
+isr:["ISR","Incremental Static Regeneration : pages statiques comme en SSG, régénérées en tâche de fond quand elles expirent.","<b>Next.js</b>, <b>Nuxt</b> (route rules <code>isr</code>)"]
+};
+const F={
+ssr:[["nav","Envoie GET /livres/"],["mw","Traverse les middlewares"],["route","Trouve le handler associé à l'URL"],["ctrl","Exécute la logique et interroge la base"],["tpl","Génère le HTML avec les données"],["resp","Le navigateur affiche le HTML complet"]],
+csr:[["nav","Charge la page"],["idx","Reçoit un HTML quasi vide"],["bundle","Télécharge le JS qui contient le framework et l'app"],["router","Choisit le composant selon l'URL"],["comp","S'exécute et lance son appel de données"],["api","Demande du JSON au back"],["jsx","Met à jour le DOM avec les données"]],
+ssg:[["build","Avant la mise en ligne : génère un HTML par page"],["cdn","Stocke les fichiers HTML prêts"],["nav","Envoie GET /livres/"],["resp","Reçoit le HTML déjà prêt, sans calcul serveur"],["hydra","Optionnel : le JS rend la page interactive"]],
+isr:[["build","Génère les pages une première fois"],["cdn","Sert la page en cache, même si elle a expiré"],["nav","Affiche immédiatement cette version"],["reval","Si le délai est dépassé, lance la régénération en arrière-plan"],["api","Récupère les données à jour"],["cdn","Remplace l'ancienne page : le visiteur suivant a la nouvelle"],["hydra","Le JS rend la page interactive"]]
+};
+const B=[
+["req","Arrive sur le serveur"],
+["wsgi","Transmet la requête au framework","Python"],
+["mw","Logs, sessions, CORS, authentification"],
+["route","Associe l'URL à un handler"],
+["guard","Autorise ou refuse l'accès","NestJS"],
+["itc","Traitement avant le handler","NestJS"],
+["pipe","Valide et transforme les entrées","NestJS"],
+["ctrl","Reçoit la requête et appelle la logique"],
+["svc","Logique métier"],
+["orm","Lit ou écrit en base"],
+["tpl","Génère le HTML au lieu du JSON","Rendu serveur"],
+["filter","Formate l'erreur si une exception est levée","NestJS"],
+["resp","Renvoie du JSON ou du HTML"]
+];
+const $=s=>document.querySelector(s);
+const li=([id,t,o])=>`<li${o?' class="opt"':''}><a href="#d-${id}">${D[id][0]}</a>${o?`<span class="tag">optionnel · ${o}</span>`:''}<span>${t}</span></li>`;
+function show(k){
+document.querySelectorAll('#front .tabs button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+$('#front .tools').innerHTML=`<span class="full">${T[k][1]}</span>Outils : ${T[k][2]}`;
+$('#front .flow').innerHTML=F[k].map(li).join('');
+}
+$('#front .tabs').innerHTML=Object.entries(T).map(([k,[n]])=>`<button data-k="${k}">${n}</button>`).join('');
+document.querySelectorAll('#front .tabs button').forEach(b=>b.onclick=()=>show(b.dataset.k));
+$('#back .flow').innerHTML=B.map(li).join('');
+$('#defs').innerHTML=Object.entries(D).map(([id,[n,t]])=>`<div id="d-${id}"><dt>${n}</dt><dd>${t}</dd></div>`).join('');
+show('ssr');
+let y=0;
+document.addEventListener('click',e=>{if(e.target.closest('.flow a'))y=window.scrollY});
+$('#up').onclick=()=>window.scrollTo({top:y,behavior:'smooth'});
+</script>
+</body>
+</html>

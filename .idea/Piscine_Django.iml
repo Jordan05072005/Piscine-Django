@@ -2,7 +2,7 @@
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Python" name="Python">
-      <configuration sdkName="3.10 WSL (Ubuntu): (/home/jordan/.virtualenvs/cohelio-dashboard/bin/python)" />
+      <configuration sdkName="3.10 WSL (Ubuntu): (/usr/bin/python3)" />
     </facet>
   </component>
   <component name="Go">
@@ -13,8 +13,8 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="openjdk-26 (WSL)" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="3.10 WSL (Ubuntu): (/home/jordan/Desktop/Programmation/Etude/42/alternance/Piscine_Django/4 - Base Django/ex02/django_venv/bin/python3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="3.10 WSL (Ubuntu): (/home/jordan/.virtualenvs/cohelio-dashboard/bin/python) interpreter library" level="application" />
+    <orderEntry type="library" name="3.10 WSL (Ubuntu): (/usr/bin/python3) interpreter library" level="application" />
   </component>
 </module>

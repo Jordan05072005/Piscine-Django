@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% if request.resolver_match.url_name  != "templates" %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    {% else %}
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    {% endif %}
+    <style>
+        {% block style %}{% endblock %}
+        nav { background: #f0f5f2; padding: .6rem 1rem; border-radius: 6px; margin-bottom: 1.5rem; }
+        nav a { margin-right: 1rem; color: #0c4b33; }
+    </style>
+</head>
+<body>
+    {% include "nav.html" %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

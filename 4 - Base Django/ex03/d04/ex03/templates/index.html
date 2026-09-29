@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+<style>
+    body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }
+    td{
+        height: 40px;
+        width: 80px;
+    }
+</style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>
+                Noir
+            </th>
+            <th>
+                Rouge
+            </th>
+            <th>
+                Bleu
+            </th>
+            <th>
+                Vert
+            </th>
+        </tr>
+        {% for row in rows %}
+        <tr>
+            <td style="background-color: {{ row.col1 }};">
+            </td>
+            <td style="background-color: {{ row.col2 }};">
+            </td>
+            <td style="background-color: {{ row.col3 }};">
+
+            </td>
+            <td style="background-color: {{ row.col4 }};">
+
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
