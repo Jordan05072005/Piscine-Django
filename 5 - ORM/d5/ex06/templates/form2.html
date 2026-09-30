@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+        <style>
+            form {
+                text-align: center;
+            }
+            body {
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            button {
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    {% if titles %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">{{ nameButton }}</button>
+    </form>
+    {% else %}
+    <p>No data available</p>
+    {% endif %}
+
+    </body>
+</html>

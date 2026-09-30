@@ -1,0 +1,10 @@
+psql -h localhost -U djangouser -d djangodb
+
+\dt                           -- liste les tables de la base
+\d ex00_movies                -- structure de la table : colonnes, types, contraintes
+SELECT * FROM ex00_movies;    -- contenu de la table
+\q                            -- quitter
+
+
+pour les models
+python manage.py migrate

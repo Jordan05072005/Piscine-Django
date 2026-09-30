@@ -285,7 +285,7 @@ class TestPageStr(unittest.TestCase):
     def test_str_matches_underlying_page(self):
         html = build_valid_page()
         page = Page(html)
-        self.assertEqual(str(page), str(html))
+        self.assertEqual(str( page), "<!DOCTYPE html>\n" + str(html))
 
     
     def test_str_has_doctype_when_root_is_html(self):
