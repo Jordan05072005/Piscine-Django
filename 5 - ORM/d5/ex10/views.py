@@ -4,26 +4,30 @@ from .models import Movies, People, Planets
 
 # Create your views here.
 def display(request):
-    gender_choice = People.objects.values('gender').distinct()
+    gender_choice = [
+        (g, g)
+        for g in People.objects.values_list("gender", flat=True).distinct().order_by("gender")
+        if g
+    ]
     rows = []
     header = []
     try:
         if request.method == 'POST':
             form = FormMovie(gender_choice, request.POST)
             if form.is_valid():
-                rows = (
+                rows = list(
                     Movies.objects
-                    .filter(characters_gender=form.cleaned_data['gender'],
+                    .filter(characters__gender=form.cleaned_data['gender'],
                             release_date__range=[form.cleaned_data['date_min'], form.cleaned_data['date_max']],
-                            characters_homeworld_diameter__gte=form.cleaned_data['homeworld_diameter'])
+                            characters__homeworld__diameter__gte=form.cleaned_data['diameter'])
                     # .order_by("name")
-                    .values_list("characters__name", "characters__gender", "title", "characters_homeworld", "characters_homeworld_diameter")
+                    .values_list("title", "characters__name", "characters__gender" , "characters__homeworld", "characters__homeworld__diameter")
                 )
                 if rows and len(rows) > 0:
-                    header = ["Character Name", "Character Gender", "Movie Title", "Character Homeworld", "Character Homeworld Diameter"]
+                    header = ["Movie Title", "Character Name", "Character Gender" , "Character Homeworld", "Character Homeworld Diameter"]
         else:
             form = FormMovie(gender_choice)
     except Exception as e:
-        print(e)
+        print("ERROR: ", e)
         form = None
     return render(request, "display_ex10.html", {"form": form, "rows": rows, "header": header})
