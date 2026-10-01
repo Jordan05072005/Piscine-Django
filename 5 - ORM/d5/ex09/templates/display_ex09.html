@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Response</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: system-ui, sans-serif;
+            background: #f4f5f7;
+            color: #222;
+        }
+
+        table {
+            border-collapse: collapse;
+            max-width: 1200px;
+            width: 100%;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #1f2937;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) td {
+            background: #f9fafb;
+        }
+
+        tr:hover td {
+            background: #eef2ff;
+        }
+
+        td.empty {
+            text-align: center;
+            font-style: italic;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            {% for head in header %}
+            <th>{{ head }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in rows %}
+        <tr>
+            {% for data in row %}
+            <td>
+                {{ data }}
+            </td>
+            {% empty %}
+            <td class="empty" colspan="6">No data available</td>
+            {% endfor %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="empty" colspan="6">{{ empty_mess }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

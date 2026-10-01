@@ -7,6 +7,9 @@ init:
 	sudo -iu postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='$(POSTGRES_DB)'" | grep -q 1 || sudo -iu postgres psql -c "CREATE DATABASE $(POSTGRES_DB) OWNER $(POSTGRES_USER);"
 	pg_lsclusters
 
+run:
+	python manage.py runserver
+
 stop:
 	sudo service postgresql stop
 

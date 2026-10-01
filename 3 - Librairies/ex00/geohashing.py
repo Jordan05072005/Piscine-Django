@@ -1,6 +1,5 @@
 # import antigravity
 import sys
-from linecache import clearcache
 
 def is_float(s):
     try:
@@ -37,7 +36,7 @@ def get_geohash(latitude: float, longitude: float, precision: int):
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print("Il manque des arguments")
+        print("Mauvais nombre d'arguments: latitude longitude precision")
     else:
         if not (is_float(sys.argv[1]) and is_float(sys.argv[2]) and sys.argv[3].isdigit()):
             print("Les arguments ne sont pas du bon type, float, float, int")
@@ -51,7 +50,6 @@ if __name__ == '__main__':
     # for i in range (1, 13): # au dela de 12, c'est trop petit et donne toujours des valeurs identiques de 11111 + pas utile
     #     print(get_geohash(42.6985, 2.8885, i))
 
-clearcache()
 
 
 
