@@ -1,0 +1,36 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Inscription — Life Pro Tips{% endblock %}
+{% block head %}
+    <div class="brand">Life <span>Pro Tips</span></div>
+    <h1>Créer un compte</h1>
+    <p class="subtitle">Rejoignez la communauté et partagez vos astuces.</p>
+{% endblock %}
+
+{% block form %}
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="nonfield">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+    </div>
+    {% endif %}
+
+    {% for field in form %}
+    <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn">S'inscrire</button>
+</form>
+{% endblock %}
+
+{% block switch %}
+<p class="switch">
+    Déjà un compte ? <a href="{% url 'login' %}">Se connecter</a>
+</p>
+{% endblock %}

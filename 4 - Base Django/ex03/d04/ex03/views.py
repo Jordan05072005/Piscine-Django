@@ -14,4 +14,3 @@ def index(request):
             "col4":  f"#00{v:02X}00",
         })
     return render(request, "index.html", {'rows': rows})
-# for i in range(1, 11)

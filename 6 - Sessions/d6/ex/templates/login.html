@@ -1,0 +1,36 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Connexion — Life Pro Tips{% endblock %}
+{% block head %}
+    <div class="brand">Life <span>Pro Tips</span></div>
+    <h1>Connexion</h1>
+    <p class="subtitle">Content de vous revoir !</p>
+{% endblock %}
+
+{% block form %}
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="nonfield">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+    </div>
+    {% endif %}
+
+    {% for field in form %}
+    <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn">S'inscrire</button>
+</form>
+{% endblock %}
+
+{% block switch %}
+<p class="switch">
+    Pas encore de compte ? <a href="{% url 'signup' %}">S'inscrire</a>
+</p>
+{% endblock %}
