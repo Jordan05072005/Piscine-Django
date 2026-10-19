@@ -2,7 +2,7 @@
 
 <div align="center">
 
-# 🌌 d05 — L'ORM de Django, une base de données très très lointaine…
+# 🌌 d05 — L'ORM de Django
 
 *Piscine Python-Django · Jour 05 · SQL brut 🆚 ORM*
 
