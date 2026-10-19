@@ -81,6 +81,7 @@ h1 {
 
 .tip {
     display: flex;
+    position: relative;
     flex-direction: column;
     background: var(--card);
     border: 1px solid var(--border);
@@ -175,17 +176,41 @@ h1 {
 }
 .close:hover { background: #fee2e2; color: var(--error); }
 
+/* ---------- Croix delete tip ---------- */
+
+.delete_tips {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;              /* ← enlève la bordure du <button> */
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #E53935;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;           /* ← main au survol */
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+.delete_tips:hover { background: #fee2e2; color: var(--error); }
+
+
 /* ---------- Footer (vide) ---------- */
 /*footer {*/
 /*    min-height: 3.5rem;*/
 /*    border-top: 1px solid var(--border);*/
 /*    background: var(--card);*/
 /*}*/
-
 .vote {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 0.8rem;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: flex-end;
 }
 
 .vote form { margin: 0; }
@@ -194,27 +219,91 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.4rem 0.75rem;
-    border: 1px solid var(--border);
+    padding: 0.4rem 0.7rem;      /* au lieu de width/height fixes */
+    border: none;
     border-radius: 999px;
-    background: #fff;
+    background: transparent;
+    color: var(--muted);
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--muted);
     cursor: pointer;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    transition: background 0.15s, color 0.15s;
 }
 
-/* pouce haut → vert */
+/* pouce haut → vert au survol */
 .vote-btn.up:hover {
     background: #ecfdf5;
-    color: #065f46;
-    border-color: #a7f3d0;
+    color: #059669;
 }
 
-/* pouce bas → rouge */
+/* pouce bas → rouge au survol */
 .vote-btn.down:hover {
     background: #fef2f2;
-    color: #991b1b;
-    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.score {
+    min-width: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.toasts {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1000;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 260px;
+    max-width: 360px;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: system-ui, sans-serif;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    border: 1px solid transparent;
+    animation: toast-in 0.25s ease;
+}
+
+.toast span { flex: 1; }
+
+.toast-close {
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+}
+.toast-close:hover { opacity: 1; }
+
+/* couleurs selon le type de message */
+.toast.success { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+.toast.error,
+.toast.danger  { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.toast.warning { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+.toast.info,
+.toast.debug   { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.toast.hide {
+    animation: toast-out 0.3s ease forwards;
+}
+@keyframes toast-out {
+    to { opacity: 0; transform: translateX(20px); }
 }

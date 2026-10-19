@@ -1,21 +1,21 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
+from django.forms import ModelForm
+from .models import Tip, User
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", required=True)
     password = forms.CharField(label="Password", required=True, widget=forms.PasswordInput)
 
-    def clean(self):
-        cleaned = super().clean()
-        username = cleaned.get("username")
-        password = cleaned.get("password")
-        user = authenticate(username=username, password=password)
-        if user:
-            return cleaned
-        raise ValidationError("Username or Password is invalid")
+    # def clean(self):
+    #     cleaned = super().clean()
+    #     username = cleaned.get("username")
+    #     password = cleaned.get("password")
+    #     user = User.objects.authenticate(username=username, password=password)
+    #     if user:
+    #         return cleaned
+    #     raise ValidationError("Username or Password is invalid")
 
 
 
@@ -41,3 +41,12 @@ class SignupForm(forms.Form):
         if pwd and pwd2 and pwd != pwd2:
             raise ValidationError("Les deux mots de passe ne correspondent pas.")
         return cleaned
+
+
+
+
+
+class TipForm(ModelForm):
+    class Meta:
+        model = Tip
+        fields = ['content']

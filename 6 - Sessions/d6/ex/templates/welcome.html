@@ -219,12 +219,12 @@
 
 <header>
     <div class="logo">Life <span>Pro Tips</span></div>
-    <!-- Example: to be linked to the anonymous session later -->
     <nav class="session">
         <details class="menu">
-            <summary>Hello <b>{{ name }}</b> !</summary>
-            {{ if connected }}
-            <summary>Reputation : <b>{{ reputation }}</b> !</summary>
+            <summary>
+                Hello <b>{{ name }}</b> !
+                {% if connected %}(<b>{{ user.reputation }}</b>){% endif %}
+            </summary>
             <div class="menu-content">
                 <a href="/">Life Pro Tips</a>
                 {% if connected %}
