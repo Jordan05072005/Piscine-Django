@@ -1,0 +1,18 @@
+{% extends "profile_base.html" %}
+{% load i18n %}
+
+{% block profile_content %}
+{% with favorites=user.userfavouritearticle_set.all|dictsortreversed:"article.created" %}
+{% if favorites %}
+<ul class="favoris-liste">
+    {% for favorite in favorites %}
+    <li>
+        <a href="{% url 'article_detail' favorite.article.id %}">{{ favorite.article.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="vide-message">{% translate "No favorites yet." %}<a href="{% url 'articles' %}">{% translate "Browse the articles" %}</a>{% translate " to add some." %}</p>
+{% endif %}
+{% endwith %}
+{% endblock %}

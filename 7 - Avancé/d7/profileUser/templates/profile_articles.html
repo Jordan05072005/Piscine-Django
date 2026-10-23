@@ -1,0 +1,33 @@
+{% extends "profile_base.html" %}
+{% load i18n %}
+
+{% block profile_content %}
+<div class="tableau-conteneur">
+    <table>
+        <thead>
+        <tr>
+            <th>{% translate "Title" %}</th>
+            <th>{% translate "Synopsis" %}</th>
+            <th>{% translate "Created" %}</th>
+            <th>{% translate "Publishing since" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in user.article_set.all|dictsortreversed:"created" %}
+        <tr onclick="window.location.href='{% url 'article_detail' article.id %}'">
+            <td class="titre">{{ article.title }}</td>
+            <td class="synopsis">{{ article.synopsis|truncatechars:20 }}</td>
+            <td class="date">
+                <time datetime="{{ article.created|date:'c' }}">{{ article.created|date:"j F Y, H:i" }}</time>
+            </td>
+            <td class="date">{{ article.created|timesince }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="vide" colspan="3">{% translate "You haven’t published any articles yet." %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

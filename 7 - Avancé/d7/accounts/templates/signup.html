@@ -1,0 +1,38 @@
+{% extends "login.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Sign up" %}{% endblock %}
+
+
+{% block content %}
+<div class="formulaire">
+    <h1>{% translate "Create an account" %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+        <p class="erreur">{{ error }}</p>
+        {% endfor %}
+
+        <div class="champ">
+            <label for="{{ form.username.id_for_label }}">{% translate "Username" %}</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}<p class="erreur">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="champ">
+            <label for="{{ form.password1.id_for_label }}">{% translate "Password" %}</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}<p class="erreur">{{ error }}</p>{% endfor %}
+        </div>
+
+        <div class="champ">
+            <label for="{{ form.password2.id_for_label }}">{% translate "Confirm password" %}</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}<p class="erreur">{{ error }}</p>{% endfor %}
+        </div>
+
+        <button type="submit">{% translate "Create account" %}</button>
+    </form>
+    <p class="bascule">{% translate "Already have an account?" %}<a href="/login/">{% translate "Log in" %}</a></p>
+</div>
+{% endblock %}

@@ -15,7 +15,6 @@ def populate(request):
     results = []
     for movie in MOVIES:
         try:
-
             Movies.objects.create(
                 episode_nb = movie[0],
                 title = movie[1],

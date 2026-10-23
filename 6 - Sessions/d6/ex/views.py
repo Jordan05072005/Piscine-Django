@@ -47,8 +47,6 @@ def signup(request):
 
             except IntegrityError:
                 form.add_error('username', 'Error connecting to database')
-        else:
-            form.add_error('username', 'Username already exists')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -83,9 +81,10 @@ def logoutView(request):
 #--------------CRUD-----------------------------------
 
 def create_tip(request):
-    if request.method == 'POST':
+    form = None
+    if request.method == 'POST' and request.user.is_authenticated:
         form = TipForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and request.user.is_authenticated:
             try:
                 Tip.objects.create(author=request.user, content=form.cleaned_data['content'])
                 messages.success(request, 'Tip created successfully!')
@@ -93,13 +92,12 @@ def create_tip(request):
             except Exception as e:
                 form.add_error('content', str(e))
 
-    else:
+    elif request.user.is_authenticated:
         form = TipForm()
     return render(request, 'create_tip.html', {'form': form, "connected": request.user.is_authenticated})
 
 def list_tips(request):
     tips = Tip.objects.all().order_by("date")
-    print("la", tips)
     return render(request, 'list_tips.html', {'tips': tips, "connected": request.user.is_authenticated})
 
 @login_required(login_url='login')

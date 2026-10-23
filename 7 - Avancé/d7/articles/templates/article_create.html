@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+<style>
+    .publish-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+    .publish-card {
+        width: 100%;
+        max-width: 640px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(6px);
+        padding: 2.5rem;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        color: #e5e7eb;
+    }
+    .publish-card h1 {
+        margin: 0 0 1.75rem;
+        font-size: 1.75rem;
+        text-align: center;
+        color: #ffffff;
+    }
+    .publish-field {
+        margin-bottom: 1.25rem;
+    }
+    .publish-field label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+        color: #cbd5e1;
+    }
+    .publish-field input,
+    .publish-field textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.7rem 0.9rem;
+        background: rgba(15, 23, 42, 0.6);
+        color: #f1f5f9;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .publish-field input::placeholder,
+    .publish-field textarea::placeholder {
+        color: #64748b;
+    }
+    .publish-field textarea {
+        min-height: 220px;
+        resize: vertical;
+    }
+    .publish-field input:focus,
+    .publish-field textarea:focus {
+        outline: none;
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+    }
+    .publish-help {
+        display: block;
+        margin-top: 0.3rem;
+        font-size: 0.85rem;
+        color: #94a3b8;
+    }
+    .publish-error {
+        margin: 0.35rem 0 0;
+        font-size: 0.875rem;
+        color: #f87171;
+    }
+    .publish-actions {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        margin-top: 1.75rem;
+    }
+    .btn {
+        padding: 0.7rem 1.4rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+    }
+    .btn-primary {
+        background: #3b82f6;
+        color: #fff;
+    }
+    .btn-primary:hover {
+        background: #2563eb;
+    }
+    .btn-secondary {
+        background: transparent;
+        color: #cbd5e1;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+</style>
+
+<div class="publish-wrapper">
+    <div class="publish-card">
+        <h1>{% translate "Publish an article" %}</h1>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% for error in form.non_field_errors %}
+            <p class="publish-error">{{ error }}</p>
+            {% endfor %}
+
+            {% for field in form %}
+            <div class="publish-field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <small class="publish-help">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                <p class="publish-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <div class="publish-actions">
+                <a href="{% url 'articles' %}" class="btn btn-secondary">{% translate "Cancel" %}</a>
+                <button type="submit" class="btn btn-primary">{% translate "Publish" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

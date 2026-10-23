@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block style %}
+.retour {
+display: inline-block;
+margin: 1rem 0 2rem;
+color: var(--doux);
+font-weight: 600;
+text-decoration: none;
+}
+.retour:hover {
+color: var(--encre);
+}
+.detail {
+max-width: 70ch;
+}
+.detail h1 {
+margin: 0 0 1rem;
+font-size: clamp(2.2rem, 6vw, 3.6rem);
+font-weight: 800;
+letter-spacing: -0.03em;
+line-height: 1.05;
+}
+.detail-entete {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 1rem;
+margin: 0 0 2rem;
+}
+.detail-meta {
+margin: 0;
+color: var(--doux);
+}
+.detail-meta strong {
+color: var(--encre);
+font-weight: 600;
+}
+.fav-form {
+margin: 0;
+flex-shrink: 0;
+}
+.fav-btn {
+width: 46px;
+height: 46px;
+border-radius: 50%;
+border: 2px solid var(--or);
+background: transparent;
+color: var(--or);
+font-size: 1.4rem;
+line-height: 1;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+.fav-btn:hover {
+background: var(--or);
+color: var(--fond, #0f172a);
+}
+.fav-btn:active {
+transform: scale(0.92);
+}
+.detail-synopsis {
+margin: 0 0 2.5rem;
+padding-left: 1.2rem;
+border-left: 4px solid var(--or);
+font-size: 1.25rem;
+line-height: 1.5;
+}
+.detail-contenu {
+font-size: 1.1rem;
+line-height: 1.75;
+}
+.detail-contenu p {
+margin: 0 0 1.2rem;
+}
+.fav-btn:hover,
+.fav-btn.is-active {
+background: var(--or);
+color: var(--fond, #0f172a);
+}
+.fav-btn.is-active:hover {
+background: transparent;
+color: var(--or);
+}
+{% endblock %}
+
+{% block content %}
+<a href="javascript:history.back()" class="retour">{% translate "← Back" %}</a>
+<article class="detail">
+    <h1>{{ article.title }}</h1>
+
+    <div class="detail-entete">
+        <p class="detail-meta">
+            {% blocktranslate trimmed with author=article.author iso=article.created|date:"c" date=article.created|date:"j F Y, H:i" %}
+            By <strong>{{ author }}</strong>, on <time datetime="{{ iso }}">{{ date }}</time>
+            {% endblocktranslate %}
+        </p>
+
+        {% include "favorite.html" %}
+    </div>
+
+    <p class="detail-synopsis">{{ article.synopsis }}</p>
+
+    <div class="detail-contenu">
+        {{ article.content|linebreaks }}
+    </div>
+</article>
+{% endblock %}

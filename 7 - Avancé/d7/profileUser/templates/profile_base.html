@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ user.username }}’s profile{% endblock %}
+
+{% block style %}
+.profil-entete {
+display: flex;
+align-items: center;
+gap: 1.2rem;
+margin: 1.5rem 0 2rem;
+}
+.profil-avatar {
+display: grid;
+place-items: center;
+width: 4.5rem;
+height: 4.5rem;
+flex-shrink: 0;
+border-radius: 50%;
+background: var(--or);
+color: #1b2a41;
+font-size: 2rem;
+font-weight: 800;
+text-transform: uppercase;
+}
+.profil-entete h1 {
+margin: 0;
+font-size: clamp(2rem, 5vw, 3rem);
+font-weight: 800;
+letter-spacing: -0.03em;
+line-height: 1;
+}
+.profil-entete p {
+margin: 0.3rem 0 0;
+color: var(--doux);
+}
+
+/* Barre d’onglets */
+.onglets {
+display: flex;
+gap: 0.4rem;
+margin-bottom: 2rem;
+border-bottom: 2px solid var(--trait);
+}
+.onglets a {
+padding: 0.8rem 1.2rem;
+margin-bottom: -2px;
+border-bottom: 3px solid transparent;
+color: var(--doux);
+font-weight: 600;
+text-decoration: none;
+}
+.onglets a:hover {
+color: var(--encre);
+}
+.onglets a[aria-current="page"] {
+color: var(--encre);
+border-bottom-color: var(--or);
+}
+
+/* Tableau des articles */
+.tableau-conteneur {
+overflow-x: auto;
+border-radius: 16px;
+border: 2px solid var(--trait);
+background: var(--surface);
+}
+table {
+width: 100%;
+border-collapse: collapse;
+min-width: 560px;
+}
+th {
+text-align: left;
+padding: 1rem 1.2rem;
+background: var(--encre);
+color: var(--papier);
+font-weight: 600;
+white-space: nowrap;
+}
+td {
+padding: 1rem 1.2rem;
+border-top: 1px solid var(--trait);
+vertical-align: top;
+}
+td.titre {
+font-weight: 800;
+font-size: 1.1rem;
+}
+td.date {
+color: var(--doux);
+white-space: nowrap;
+}
+td.synopsis {
+color: var(--doux);
+max-width: 50ch;
+}
+td.vide {
+text-align: center;
+padding: 2.5rem;
+color: var(--doux);
+}
+tbody tr[onclick] {
+cursor: pointer;
+}
+tbody tr:hover {
+background: rgba(232, 176, 33, 0.08);
+}
+
+/* Liste des favoris */
+.favoris-liste {
+list-style: none;
+margin: 0;
+padding: 0;
+max-width: 70ch;
+}
+.favoris-liste li + li {
+border-top: 2px solid var(--trait);
+}
+.favoris-liste a {
+display: flex;
+align-items: baseline;
+gap: 0.8rem;
+padding: 1.1rem 0;
+color: var(--encre);
+font-size: 1.25rem;
+font-weight: 800;
+text-decoration: none;
+}
+.favoris-liste a::before {
+content: "★";
+color: var(--or);
+font-size: 1rem;
+}
+.favoris-liste a:hover {
+color: var(--or-fonce);
+}
+.vide-message {
+color: var(--doux);
+}
+.vide-message a {
+color: var(--encre);
+font-weight: 600;
+}
+{% endblock %}
+
+{% block content %}
+<div class="profil-entete">
+    <div class="profil-avatar" aria-hidden="true">{{ user.username|first }}</div>
+    <div>
+        <h1>{{ user.username }}</h1>
+        <p>{% translate "Member since" %}{{ user.date_joined|date:"j F Y" }}</p>
+    </div>
+</div>
+
+{% with current=request.resolver_match.url_name %}
+<nav class="onglets" aria-label="Profile sections">
+    <a href="{% url 'profileArticles' %}" {% if current == "profileArticles" %}aria-current="page"{% endif %}>
+    {% translate "My articles" %}
+    </a>
+    <a href="{% url 'profileFavourites' %}" {% if current == "profileFavourites" %}aria-current="page"{% endif %}>
+    {% translate "Favorites" %}
+    </a>
+</nav>
+{% endwith %}
+
+{% block profile_content %}{% endblock %}
+{% endblock %}

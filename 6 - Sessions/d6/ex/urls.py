@@ -20,9 +20,9 @@ from .views import home, signup, loginView, logoutView,create_tip, list_tips, up
 
 urlpatterns = [
     path('', home, name='home'),
-    path('signup', signup, name='signup'),
-    path('login', loginView, name='login'),
-    path('logout', logoutView, name='logout'),
+    path('signup/', signup, name='signup'),
+    path('login/', loginView, name='login'),
+    path('logout/', logoutView, name='logout'),
     path('tips/create', create_tip, name='create'),
     path('tips/list', list_tips, name='list'),
     path("tips/<int:tip_id>/upvote", upvote, name="upvote"),

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Log in{% endblock %}
+
+{% block style %}
+.formulaire {
+max-width: 26rem;
+margin: 3rem auto 0;
+padding: 2rem;
+background: var(--surface);
+border: 2px solid var(--trait);
+border-radius: 16px;
+}
+.formulaire h1 {
+margin: 0 0 1.5rem;
+font-size: 2rem;
+font-weight: 800;
+letter-spacing: -0.03em;
+}
+.champ {
+margin-bottom: 1.1rem;
+}
+.champ label {
+display: block;
+margin-bottom: 0.35rem;
+font-weight: 600;
+}
+.champ input {
+width: 100%;
+padding: 0.75rem 0.9rem;
+font: inherit;
+color: var(--encre);
+background: var(--papier);
+border: 2px solid var(--trait);
+border-radius: 10px;
+}
+.champ input:focus {
+border-color: var(--or);
+outline: none;
+}
+.aide, .erreur {
+margin: 0.35rem 0 0;
+font-size: 0.85rem;
+}
+.aide { color: var(--doux); }
+.aide ul { margin: 0; padding-left: 1.1rem; }
+.erreur { color: #c0392b; font-weight: 600; }
+.formulaire button {
+width: 100%;
+margin-top: 0.5rem;
+padding: 0.85rem;
+font: inherit;
+font-weight: 600;
+color: var(--papier);
+background: var(--encre);
+border: none;
+border-radius: 999px;
+cursor: pointer;
+}
+.formulaire button:hover {
+background: var(--or-fonce);
+color: #1b2a41;
+}
+.bascule {
+margin: 1.3rem 0 0;
+text-align: center;
+color: var(--doux);
+}
+.bascule a {
+color: var(--encre);
+font-weight: 600;
+}
+{% endblock %}
+
+{% block content %}
+<div class="formulaire">
+    <h1>{% translate "Log in" %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <p class="erreur">Incorrect username or password. Check your credentials and try again.</p>
+        {% endif %}
+        {% for field in form %}
+        <div class="champ">
+            {{ field.label_tag }}
+            {{ field }}
+            {% for error in field.errors %}<p class="erreur">{{ error }}</p>{% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit">{% translate "Log in" %}</button>
+    </form>
+    <p class="bascule">{% translate "Don’t have an account yet?" %}<a href="/signup">{% translate "Create an account" %}</a></p>
+</div>
+{% endblock %}

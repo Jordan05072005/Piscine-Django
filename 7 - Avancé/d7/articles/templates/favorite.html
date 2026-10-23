@@ -1,0 +1,15 @@
+{% if user.is_authenticated %}
+{% if favorite %}
+<form method="post" action="{% url 'delete_favorite' favorite.pk %}" class="fav-form"
+      onsubmit="event.preventDefault(); fetch(this.action, {method: 'POST', body: new FormData(this)}).then(() => location.reload());">     {% csrf_token %}
+    <input type="hidden" name="article" value="{{ article.id }}">
+    <button type="submit" class="fav-btn is-active" title="Remove from favourites" aria-label="Remove from favourites">★</button>
+</form>
+{% else %}
+<form method="post" action="{% url 'add_favourite' %}" class="fav-form"
+      onsubmit="event.preventDefault(); fetch(this.action, {method: 'POST', body: new FormData(this)}).then(() => location.reload());">    {% csrf_token %}
+    <input type="hidden" name="article" value="{{ article.id }}">
+    <button type="submit" class="fav-btn" title="Add to favourites" aria-label="Add to favourites">★</button>
+</form>
+{% endif %}
+{% endif %}

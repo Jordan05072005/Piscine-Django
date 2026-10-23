@@ -1,10 +1,10 @@
 {% extends "auth_base.html" %}
 
-{% block title %}Connexion — Life Pro Tips{% endblock %}
+{% block title %}Log in — Life Pro Tips{% endblock %}
 {% block head %}
-    <div class="brand">Life <span>Pro Tips</span></div>
-    <h1>Connexion</h1>
-    <p class="subtitle">Content de vous revoir !</p>
+<div class="brand">Life <span>Pro Tips</span></div>
+<h1>Log in</h1>
+<p class="subtitle">Welcome back!</p>
 {% endblock %}
 
 {% block form %}
@@ -25,12 +25,12 @@
     </div>
     {% endfor %}
 
-    <button type="submit" class="btn">S'inscrire</button>
+    <button type="submit" class="btn">Log in</button>
 </form>
 {% endblock %}
 
 {% block switch %}
 <p class="switch">
-    Pas encore de compte ? <a href="{% url 'signup' %}">S'inscrire</a>
+    Don’t have an account? <a href="{% url 'signup' %}">Sign up</a>
 </p>
 {% endblock %}

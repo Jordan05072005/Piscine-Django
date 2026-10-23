@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Articles{% endblock %}
+
+{% block style %}
+.entete h1 {
+margin: 1.5rem 0 0.4rem;
+font-size: clamp(2.2rem, 6vw, 3.5rem);
+font-weight: 800;
+letter-spacing: -0.03em;
+line-height: 1;
+}
+.entete p {
+margin: 0 0 2rem;
+color: var(--doux);
+}
+.tableau-conteneur {
+overflow-x: auto;
+border-radius: 16px;
+border: 2px solid var(--trait);
+background: var(--surface);
+}
+table {
+width: 100%;
+border-collapse: collapse;
+min-width: 640px;
+}
+th {
+text-align: left;
+padding: 1rem 1.2rem;
+background: var(--encre);
+color: var(--papier);
+font-weight: 600;
+white-space: nowrap;
+}
+td {
+padding: 1rem 1.2rem;
+border-top: 1px solid var(--trait);
+vertical-align: top;
+}
+td.titre {
+font-weight: 800;
+font-size: 1.1rem;
+letter-spacing: -0.01em;
+}
+td.auteur {
+font-weight: 600;
+white-space: nowrap;
+}
+td.date {
+color: var(--doux);
+white-space: nowrap;
+}
+td.synopsis {
+color: var(--doux);
+max-width: 50ch;
+}
+td.vide {
+text-align: center;
+padding: 2.5rem;
+color: var(--doux);
+}
+tbody tr[onclick] {
+cursor: pointer;
+}
+tbody tr:hover {
+background: rgba(232, 176, 33, 0.08);
+}
+.entete-ligne {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 1rem;
+margin-top: 1.5rem;
+}
+.entete-ligne h1 {
+margin: 0;
+}
+.entete p {
+margin-top: 0.4rem;
+}
+.bouton-creer {
+flex-shrink: 0;
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+padding: 0.75rem 1.4rem;
+border-radius: 999px;
+background: var(--encre);
+color: var(--papier);
+font-weight: 600;
+text-decoration: none;
+transition: background 0.2s;
+}
+.bouton-creer:hover {
+background: var(--or-fonce);
+color: #1b2a41;
+}
+{% endblock %}
+
+{% block content %}
+<div class="entete">
+    <div class="entete-ligne">
+        <h1>{% translate "Articles" %}</h1>
+        {% if user.is_authenticated %}
+        <a href="{% url 'publish' %}" class="bouton-creer">{% translate "+ Create" %}</a>
+        {% endif %}
+    </div>
+    <p>{% translate "All published articles, from the most recent to the oldest" %}.</p>
+</div>
+
+<div class="tableau-conteneur">
+    <table>
+        <thead>
+        <tr>
+            <th>{% translate "Title" %}</th>
+            <th>{% translate "Author" %}</th>
+            <th>{% translate "Synopsis" %}</th>
+            <th>{% translate "Created" %}</th>
+            <th>{% translate "Publishing since" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles.all|dictsortreversed:"created" %}
+        <tr onclick="window.location.href='{% url 'article_detail' article.id %}'">
+            <td class="titre">{{ article.title }}</td>
+            <td class="auteur">{{ article.author }}</td>
+            <td class="synopsis">{{ article.synopsis|truncatechars:20 }}</td>
+            <td class="date">
+                <time datetime="{{ article.created|date:'c' }}">{{ article.created|date:"j F Y, H:i" }}</time>
+            </td>
+            <td class="date">{{ article.created|timesince }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="vide" colspan="4">{% translate "No articles yet." %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
