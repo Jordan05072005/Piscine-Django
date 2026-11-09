@@ -1,0 +1,7 @@
+<h1>My account</h1>
+<p class="subtitle">Logged as <strong>{{ user.username }}</strong></p>
+
+<form id='logout' method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>

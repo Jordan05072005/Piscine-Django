@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Account — Unnamed site</title>
+    <style>
+        :root {
+            --bg: #f4f1ec;
+            --card: #ffffff;
+            --text: #1f1d1a;
+            --muted: #6b665e;
+            --border: #ddd6cb;
+            --accent: #d9572b;
+            --accent-hover: #bf4720;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #161513;
+                --card: #22201d;
+                --text: #f1ede6;
+                --muted: #a39d93;
+                --border: #3a3631;
+                --accent: #ef7148;
+                --accent-hover: #f58a66;
+            }
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 380px;
+            padding: 36px 32px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            display: block;
+            margin-bottom: 28px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo span { color: var(--accent); }
+
+        h1 {
+            margin: 0 0 6px;
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            margin: 0 0 24px;
+            color: var(--muted);
+        }
+
+        form > div { margin-bottom: 16px; }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 1rem;
+            color: var(--text);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(217, 87, 43, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            margin-top: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        button:hover { background: var(--accent-hover); }
+
+        .switch {
+            margin: 22px 0 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .switch a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .switch a:hover { text-decoration: underline; }
+
+        .errorlist, .error {
+            margin: 6px 0 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0.85rem;
+            color: #d93636;
+        }
+    </style>
+</head>
+<body>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/login.js' %}"></script>
+<main class="card">
+    <a href="/" class="logo">Unnamed<span> site</span></a>
+
+    <div id="account-box">
+
+        {% if user.is_authenticated %}
+
+        {% include "logout.html" %}
+
+        {% else %}
+
+        {% include "login.html" %}
+
+        {% endif %}
+    </div>
+</main>
+
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ name }} — Chat</title>
+    <style>
+        :root {
+            --bg: #f4f1ec;
+            --card: #ffffff;
+            --text: #1f1d1a;
+            --muted: #6b665e;
+            --border: #ddd6cb;
+            --accent: #d9572b;
+            --accent-hover: #bf4720;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #161513;
+                --card: #22201d;
+                --text: #f1ede6;
+                --muted: #a39d93;
+                --border: #3a3631;
+                --accent: #ef7148;
+                --accent-hover: #f58a66;
+            }
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 760px;
+            padding: 28px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .back {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .back:hover { text-decoration: underline; }
+
+        .layout {
+            display: flex;
+            gap: 16px;
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 360px;
+            overflow-y: auto;
+            padding: 12px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .messages > :first-child {
+            margin-top: auto;
+        }
+
+        .messages p {
+            margin: 0 0 8px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .messages .author { font-weight: 600; }
+
+        .messages .system {
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .users {
+            width: 180px;
+            height: 360px;
+            overflow-y: auto;
+            padding: 12px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .users h2 {
+            margin: 0 0 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+        }
+
+        .users ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .users li { margin-bottom: 6px; }
+
+        .chat-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .chat-form input {
+            flex: 1;
+            padding: 10px 12px;
+            font-size: 1rem;
+            color: var(--text);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .chat-form input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(217, 87, 43, 0.2);
+        }
+
+        .chat-form button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .chat-form button:hover { background: var(--accent-hover); }
+
+        @media (max-width: 600px) {
+            .layout { flex-direction: column; }
+            .users { width: 100%; height: auto; max-height: 140px; }
+        }
+        .users li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            overflow: hidden;
+        }
+
+        .users li:hover { background: var(--card); }
+
+        .users .username {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .users .dot {
+            flex-shrink: 0;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #2fb350;
+            box-shadow: 0 0 0 3px rgba(47, 179, 80, 0.2);
+        }
+
+        .users .star {
+            flex-shrink: 0;
+            width: 9px;
+            font-size: 0.9rem;
+            line-height: 1;
+            color: var(--accent);
+            display: flex;
+            justify-content: center;
+        }
+
+        .users li.me .username { font-weight: 600; }
+
+        .users li.empty {
+            font-style: italic;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+<main class="card">
+    <div class="header">
+        <h1>{{ name }}</h1>
+        <a href="/" class="back" id="disconnected">← Back</a>
+    </div>
+
+    <div class="layout">
+        <div id="messages" class="messages">
+            {% for message in chat_messages %}
+            {% if message.author.username == system_username %}
+            <p class="system">{{ message.content }}</p>
+            {% else %}
+            <p><span class="author">{{ message.author.username }}:</span> {{ message.content }}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <aside class="users">
+            <h2>Online</h2>
+            <ul id="users" class="users-list">
+                {% for username in chat_users %}
+                <li class="user{% if username == request.user.username %} me{% endif %}">
+                    {% if username == request.user.username %}
+                    <span class="star" aria-hidden="true">★</span>
+                    {% else %}
+                    <span class="dot" aria-hidden="true"></span>
+                    {% endif %}
+                    <span class="username">{{ username }}</span>
+                </li>
+                {% empty %}
+                <li class="empty">Personne pour l’instant</li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+
+    <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-input" placeholder="Write a message…" autocomplete="off" required>
+        <button type="submit">Send</button>
+    </form>
+</main>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+{{ room_name|json_script:"room-name" }}
+{{ request.user.username|json_script:"me" }}
+<script src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>

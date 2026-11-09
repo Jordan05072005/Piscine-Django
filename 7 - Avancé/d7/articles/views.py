@@ -40,7 +40,7 @@ class AddFavouriteView(LoginRequiredMixin, CreateView):
     model = UserFavouriteArticle
     form_class = FavoriteArticleForm
     http_method_names = ["post"]
-
+    
     def get_success_url(self):
         return reverse("article_detail", args=[self.object.article.id])
 

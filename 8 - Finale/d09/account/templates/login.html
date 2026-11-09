@@ -1,0 +1,10 @@
+<h1>Log in</h1>
+<p class="subtitle">Welcome back!</p>
+<form id="login" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    {{ form }}
+    <div id="login-errors" class="error"></div>
+
+    <button type="submit">Log in</button>
+</form>
